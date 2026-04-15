@@ -1,0 +1,28 @@
+TASK ID: TASK-10
+TITLE: Final Audit & Good Practices Sign-off
+ROLE: All Team Members
+STATUS: TODO
+
+DESCRIPTION:
+Conduct the final pre-release team review. Verify that the entire project strictly adheres to the school's Good Practices checklists (CLI, Testing, Go standards), passes the complete `golden-tests.md` suite, and is ready for the official audit defense.
+
+REQUIREMENTS:
+- Review the codebase collectively against `CLI-Good-Practices-Checklist.md` and `Testing-Good-Practices-Checklist.md`.
+- Verify Standard Library only compliance (`go list -deps ./...`).
+- Confirm all previous tasks (TASK-01 to TASK-09) are marked DONE.
+- Simulate the final audit defense together by running through `audit-cases.md` live.
+- Polish the root `README.md` with final instructions.
+
+FILES TO CREATE/MODIFY:
+- README.md (Final polish)
+- (Optional) Team workflow or report docs
+
+ACCEPTANCE CRITERIA / TEST CASES:
+- Audit Simulation: Teammate runs `./push-swap "0 one 2"` -> Team verifies `Error\n` on stderr.
+- Code Review: Team confirms no instances of `panic()` are used for normal flow control.
+
+DEFINITION OF DONE:
+- [ ] All Good Practices Checklists are verified and respected.
+- [ ] Complete consensus reached by all 3 team members that the project is complete.
+- [ ] The `main` branch is updated and a final release tag (e.g., v1.0.0) is pushed.
+- [ ] AI index log entries added to `.ai/hmim.ai.txt`.

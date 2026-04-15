@@ -1,0 +1,28 @@
+TASK ID: TASK-04
+TITLE: Checker Executable Pipeline
+ROLE: QA & Integration Engineer
+STATUS: TODO
+
+DESCRIPTION:
+Build the `checker` executable. It reads standard input line-by-line, applies the valid operations to the parsed stacks, and verifies if Stack A is correctly sorted.
+
+REQUIREMENTS:
+- Create `cmd/checker/main.go`.
+- Integrate `internal/parser` and `internal/operations`.
+- Use `bufio.Scanner` to read `os.Stdin`.
+- Reject bad instructions (e.g., `sa \n` or `badcmd\n`) with `Error\n` and exit 1.
+- Output `OK\n` if stack A is sorted and B is empty, else `KO\n`.
+
+FILES TO CREATE/MODIFY:
+- cmd/checker/main.go
+
+ACCEPTANCE CRITERIA / TEST CASES:
+- CLI Example: Input: `echo -e "sa\n" | ./checker "2 1"` -> Expected: `OK\n`
+- CLI Example: Input: `echo -e "sa\n" | ./checker "1 2"` -> Expected: `KO\n`
+- CLI Example: Input: `echo -e "invalid\n" | ./checker "1 2"` -> Expected: `Error\n` on stderr (Exit 1)
+
+DEFINITION OF DONE:
+- [ ] Core logic is fully implemented and executes without runtime errors.
+- [ ] Edge cases, invalid inputs, and error states are handled gracefully.
+- [ ] Task execution verified in a local terminal.
+- [ ] AI index log entries added to `.ai/hmim.ai.txt`.

@@ -1,0 +1,27 @@
+TASK ID: TASK-08
+TITLE: End-to-End Golden Test Suite Pipeline
+ROLE: QA & Integration Engineer
+STATUS: TODO
+
+DESCRIPTION:
+Conduct a full integration run of the system (Milestone 5). Validate the exact string outputs, error formatting, and stderr vs stdout streams of both binaries against the `golden-tests.md` suite.
+
+REQUIREMENTS:
+- Ensure `push-swap` and `checker` integrate flawlessly using bash pipes.
+- Verify that ALL error messages print exactly `Error\n` to `stderr` and exit with code 1.
+- Ensure `./push-swap ""` and `./push-swap` behave differently according to the rules.
+- Verify edge case EC06 (checker handling empty instruction stream).
+
+FILES TO CREATE/MODIFY:
+- cmd/checker/main_test.go (or integration test script)
+- cmd/push-swap/main_test.go
+
+ACCEPTANCE CRITERIA / TEST CASES:
+- CLI Example: `ARG="4 67 3 87 23"; ./push-swap "$ARG" | ./checker "$ARG"` -> Expected: `OK\n`
+- CLI Example: `./push-swap "0 one 2"` -> Expected: `Error\n` on strictly stderr (exit 1).
+
+DEFINITION OF DONE:
+- [ ] All tests in `golden-tests.md` pass manually or via script.
+- [ ] Stderr vs Stdout separation confirmed.
+- [ ] Exit codes confirmed.
+- [ ] AI index log entries added to `.ai/hmim.ai.txt`.

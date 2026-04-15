@@ -1,0 +1,28 @@
+TASK ID: TASK-05
+TITLE: Small Sort Algorithms (N=2 to 5)
+ROLE: Algorithm Specialist
+STATUS: TODO
+
+DESCRIPTION:
+Implement the entry point for `push-swap` and hardcoded, optimized sorting logic for small data sets to bypass heavy generalization algorithms.
+
+REQUIREMENTS:
+- Create `cmd/push-swap/main.go` and `internal/sorter/small.go`.
+- Implement algorithms for sets of exactly 2, 3, 4, and 5 numbers.
+- N=3 must sort in <= 2 operations.
+- N=5 must sort in < 12 operations.
+- Print the executed operations sequentially to `stdout`.
+
+FILES TO CREATE/MODIFY:
+- cmd/push-swap/main.go
+- internal/sorter/small.go
+
+ACCEPTANCE CRITERIA / TEST CASES:
+- CLI Example: Input: `./push-swap "2 1 3"` -> Expected: `sa\n`
+- CLI Example: Input: `./push-swap "1 2 3"` -> Expected: Displays nothing (0 ops).
+- CLI Example: Input: `./push-swap "<5 random nums>"` -> Expected: Valid sort in < 12 ops.
+
+DEFINITION OF DONE:
+- [ ] Core logic is fully implemented and executes without runtime errors.
+- [ ] Algorithm benchmark tests are passing.
+- [ ] AI index log entries added to `.ai/hmim.ai.txt`.

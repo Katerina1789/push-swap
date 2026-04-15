@@ -1,0 +1,28 @@
+TASK ID: TASK-03
+TITLE: Stack Instruction Operations
+ROLE: QA & Integration Engineer
+STATUS: TODO
+
+DESCRIPTION:
+Implement the 11 strict stack operations (`sa`, `sb`, `ss`, `pa`, `pb`, `ra`, `rb`, `rr`, `rra`, `rrb`, `rrr`). These functions will safely mutate the instances of your Stack data structure.
+
+REQUIREMENTS:
+- Create the `internal/operations` package.
+- Implement functions for all 11 valid stack mutations.
+- Operations must modify the stacks in-place.
+- If an operation cannot be performed (e.g., `pa` when `b` is empty), it should do nothing and not panic.
+
+FILES TO CREATE/MODIFY:
+- internal/operations/operations.go
+- internal/operations/operations_test.go
+
+ACCEPTANCE CRITERIA / TEST CASES:
+- Unit Test: Stack A `[1, 2]`, run `sa` -> Expected Stack A `[2, 1]`.
+- Unit Test: Stack A `[1]`, Stack B `[2]`, run `pb` -> Expected Stack A `[]`, Stack B `[1, 2]`.
+- Unit Test: Stack A `[1, 2, 3]`, run `ra` -> Expected Stack A `[2, 3, 1]`.
+
+DEFINITION OF DONE:
+- [ ] Core logic is fully implemented and executes without runtime errors.
+- [ ] Code is formatted according to project standards.
+- [ ] Unit tests are written and passing for all 11 operations.
+- [ ] AI index log entries added to `.ai/hmim.ai.txt`.

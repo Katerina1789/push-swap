@@ -1,0 +1,26 @@
+TASK ID: TASK-09
+TITLE: Algorithmic Benchmarking & Optimization
+ROLE: Algorithm Specialist
+STATUS: TODO
+
+DESCRIPTION:
+Rigorously benchmark the sorting algorithms (Milestone 5) to ensure they safely pass the strict instruction limits for massive payloads (100 and 500 numbers). Shave off redundant instructions if necessary.
+
+REQUIREMENTS:
+- Run performance tests using 100 and 500 randomized inputs multiple times.
+- Optimize the algorithm (e.g., tweaking chunk sizes in Radix or LIS) if the 100-number test exceeds 700 instructions.
+- Ensure EC05 (Massive Stack) runs within reasonable time limits without freezing.
+
+FILES TO CREATE/MODIFY:
+- internal/sorter/large_test.go
+- internal/sorter/large.go (if refactoring is needed)
+
+ACCEPTANCE CRITERIA / TEST CASES:
+- Performance Test P02: `ARG=$(shuf -i 1-1000 -n 100 | tr '\n' ' '); ./push-swap $ARG | wc -l` -> Expected consistently `< 700`.
+- Performance Test P03: `ARG=$(shuf -i 1-10000 -n 500 | tr '\n' ' '); ./push-swap $ARG | wc -l` -> Expected consistently `< 5500`.
+
+DEFINITION OF DONE:
+- [ ] Benchmarks pass successfully over multiple random seeds.
+- [ ] Algorithm logic documented clearly for defense/audit purposes.
+- [ ] Space/Time complexity constraints satisfied.
+- [ ] AI index log entries added to `.ai/hmim.ai.txt`.

@@ -1,0 +1,27 @@
+TASK ID: TASK-07
+TITLE: Final Parser Edge Case & Memory Audit
+ROLE: Systems Architect
+STATUS: TODO
+
+DESCRIPTION:
+Perform an exhaustive audit of the input parser and stack state management (Milestone 5). Ensure zero memory leaks or raw panics when handling extreme inputs, and confirm strict compliance with Go memory safety.
+
+REQUIREMENTS:
+- Run `go test -race ./...` to ensure no data races exist.
+- Verify Edge Cases EC01 (Empty/Whitespace strings) and EC04 (Min/Max Int bounds).
+- Verify Error Case E03 (Integer overflow).
+- Ensure no slice out-of-bounds panics can ever reach the user.
+
+FILES TO CREATE/MODIFY:
+- internal/parser/*_test.go
+- internal/stack/*_test.go
+
+ACCEPTANCE CRITERIA / TEST CASES:
+- Unit Test: Fuzz test the parser with random string inputs to ensure it never panics, only returns errors safely.
+- CLI Example: `go run -race ./cmd/push-swap "2147483647 -2147483648 0"` -> Expected: Valid sort sequence without memory or race warnings.
+
+DEFINITION OF DONE:
+- [ ] Edge case tests written and passing.
+- [ ] Race detector shows 0 warnings.
+- [ ] Code formatted with `gofmt`.
+- [ ] AI index log entries added to `.ai/hmim.ai.txt`.

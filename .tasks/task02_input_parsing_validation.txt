@@ -1,0 +1,29 @@
+TASK ID: TASK-02
+TITLE: CLI Input Parsing & Validation
+ROLE: Systems Architect
+STATUS: TODO
+
+DESCRIPTION:
+Implement a robust parser to sanitize the input strings from `os.Args`. It must accept single or multiple string arguments and strictly validate them according to the PRD constraints.
+
+REQUIREMENTS:
+- Create the `internal/parser` package.
+- Parse both `./push-swap "1 2 3"` and `./push-swap 1 2 3`.
+- Detect duplicates, non-integers, and integer overflows.
+- Treat empty strings `""` or whitespace `"   "` as validation errors.
+- Return a validated slice of integers ready to be pushed to Stack A.
+
+FILES TO CREATE/MODIFY:
+- internal/parser/parser.go
+- internal/parser/parser_test.go
+
+ACCEPTANCE CRITERIA / TEST CASES:
+- CLI Example: Input: `./push-swap "1 2 2 3"` -> Expected: `Error\n` on stderr.
+- CLI Example: Input: `./push-swap ""` -> Expected: `Error\n` on stderr.
+- CLI Example: Input: `./push-swap "0 one 2"` -> Expected: `Error\n` on stderr.
+
+DEFINITION OF DONE:
+- [ ] Core logic is fully implemented and executes without runtime errors.
+- [ ] Code is formatted according to project standards.
+- [ ] Unit tests are written and passing.
+- [ ] AI index log entries added to `.ai/hmim.ai.txt`.
