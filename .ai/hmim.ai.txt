@@ -87,3 +87,15 @@ Model Used: Gemini Code Assist
 Discussion Summary: User requested to proceed with Step 9 and create the necessary workflow files. Generated TEAM_WORKFLOW.md tailored to push-swap and the 3-member team roles from the template, updated and fixed links in .team/README.md, and deleted the unused template. Transitioning to Step 10.
 Action Taken: Created .docs/.team/TEAM_WORKFLOW.md, updated .docs/.team/README.md, deleted .docs/.team/TEAM_WORKFLOW_template.md. Appended log entry.
 Affected Area/Task Card: .team setup, Step 9 completion
+
+Date: 2026-04-15
+Model Used: Gemini Code Assist
+Discussion Summary: User requested to proceed with Step 10. Generated the root README.md with project overview and usage instructions, and a placeholder main.go file. This completes the 10-step setup protocol.
+Action Taken: Created README.md and main.go. Appended final setup log entry.
+Affected Area/Task Card: Root scaffolding, Step 10 completion
+
+Date: 2026-04-17
+Model Used: Gemini Code Assist
+Discussion Summary: User requested to format the root README.md based on the provided teamREADME.md template. Tailored the new README.md with push-swap specific project data, removing web-specific boilerplate sections.
+Action Taken: Modified README.md and appended AI log entry.
+Affected Area/Task Card: Root README.md refinement
