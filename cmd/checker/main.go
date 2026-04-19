@@ -1,0 +1,1 @@
+// Checker for validating the sequence of operations in the push_swap algorithm.
