@@ -118,7 +118,6 @@ Discussion Summary: Formalized the 'testdata/' directory guideline in the Team W
 Action Taken: Modified .docs/.team/TEAM_WORKFLOW.md and updated log.
 Affected Area/Task Card: .team workflow, Testing Strategy
 
-
 Date: 2026-04-19
 Model Used: Gemini Code Assist
 Discussion Summary: Finalized the root README.md to reflect the dual-binary structure (cmd/), modular internal package organization (sorter, parser, errs), and the new testing standards using testdata/ for fuzzing and golden files.
@@ -148,3 +147,9 @@ Model Used: Gemini Code Assist
 Discussion Summary: Reorganized project structure by moving the .tasks/ directory into .docs/.tasks/ to centralize project metadata. Updated relative paths in TEAM_WORKFLOW.md and README.md.
 Action Taken: Modified README.md, .docs/.team/TEAM_WORKFLOW.md, and updated log.
 Affected Area/Task Card: Project Organization
+
+Date: 2026-04-19
+Model Used: Gemini Code Assist
+Discussion Summary: Created a README.md for the .scripts/ directory to guide the team on using the automation tools (check.sh, Makefile, install-tools.sh). Documented the installation process, check logic, and failure handling.
+Action Taken: Created .scripts/README.md and updated AI log.
+Affected Area/Task Card: Project Documentation, Automation Suite
