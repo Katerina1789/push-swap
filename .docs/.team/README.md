@@ -1,6 +1,9 @@
 # Team Workflow & Guidelines
 
-This directory contains the essential checklists and rules for contributing to this project. 
+This directory contains the:
+- **Task Cards** in the `tasks/` directory.qually assigned to each team member.
+- Essential **checklists** and rules for contributing to this project. 
+
 To ensure a smooth project implementation, all team members **must** adhere to the guidelines outlined in **[TEAM_WORKFLOW](TEAM_WORKFLOW.md)**.
 
 Please review the following checklists in the `checklists/` directory before marking any task as done or merging code:

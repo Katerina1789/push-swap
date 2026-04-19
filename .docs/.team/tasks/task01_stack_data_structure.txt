@@ -1,0 +1,30 @@
+TASK ID: TASK-01
+TITLE: Core Stack Data Structure
+ROLE: Systems Architect
+STATUS: TODO
+
+DESCRIPTION:
+Implement the foundational `Stack` data structure to manage the state of stacks A and B. It must be designed as a "Zero-Value usable" structure and utilize pre-allocation strategies to minimize heap allocations during large sorts.
+
+REQUIREMENTS:
+- Create the `internal/stack` package.
+- Implement a `Stack` struct (likely backed by a slice of integers).
+- Implement basic methods: `Push`, `Pop`, `Peek`, `IsEmpty`, and `Len`.
+- Implement a constructor or initialization logic that accepts a `capacity` hint derived from `os.Args`.
+- Ensure all methods handle bounds safely without panicking.
+
+FILES TO CREATE/MODIFY:
+- internal/stack/stack.go
+- internal/stack/stack_test.go
+
+ACCEPTANCE CRITERIA / TEST CASES:
+- Unit Test: Push `5`, Pop -> Expected to return `5`.
+- Unit Test: Pop from empty stack -> Expected to handle gracefully (e.g., return error or false).
+- Benchmark: Verify that sorting 500 numbers does not trigger excessive slice growth allocations.
+
+DEFINITION OF DONE:
+- [ ] Core logic is fully implemented and executes without runtime errors.
+- [ ] Code is formatted with `gofmt`.
+- [ ] Unit tests are passing using Table-Driven patterns.
+- [ ] Logic is verified against the "Zero-Value usable" principle in the CLI Checklist.
+- [ ] AI index log entries added to `.ai/hmim.ai.txt`.

@@ -10,7 +10,7 @@ REQUIREMENTS:
 - Create `cmd/checker/main.go`.
 - Integrate `internal/parser` and `internal/operations`.
 - Use `bufio.Scanner` to read `os.Stdin`.
-- Reject bad instructions (e.g., `sa \n` or `badcmd\n`) with `Error\n` and exit 1.
+- Reject bad instructions (e.g., `sa \n` or `badcmd\n`) by calling `errs.ExitWithError()`.
 - Output `OK\n` if stack A is sorted and B is empty, else `KO\n`.
 
 FILES TO CREATE/MODIFY:
@@ -24,5 +24,5 @@ ACCEPTANCE CRITERIA / TEST CASES:
 DEFINITION OF DONE:
 - [ ] Core logic is fully implemented and executes without runtime errors.
 - [ ] Edge cases, invalid inputs, and error states are handled gracefully.
-- [ ] Task execution verified in a local terminal.
+- [ ] Binary compilation verified (`go build -o checker ./cmd/checker`).
 - [ ] AI index log entries added to `.ai/hmim.ai.txt`.

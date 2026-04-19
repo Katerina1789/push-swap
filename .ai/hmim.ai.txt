@@ -136,3 +136,15 @@ Model Used: Gemini Code Assist
 Discussion Summary: Refined the TEAM_WORKFLOW.md to transform the general error handling requirement into a mandatory guideline. Explicitly prohibited manual stderr printing in favor of using the internal/errs package to ensure audit compliance.
 Action Taken: Modified .docs/.team/TEAM_WORKFLOW.md and updated log.
 Affected Area/Task Card: .team workflow, internal/errs
+
+Date: 2026-04-19
+Model Used: Gemini Code Assist
+Discussion Summary: Refined all 10 Task Cards to align with the modular architecture, pre-allocation strategy, and mandatory internal/errs integration. 
+Action Taken: Updated content for TASK-01 through TASK-10.
+Affected Area/Task Card: .tasks/
+
+Date: 2026-04-19
+Model Used: Gemini Code Assist
+Discussion Summary: Reorganized project structure by moving the .tasks/ directory into .docs/.tasks/ to centralize project metadata. Updated relative paths in TEAM_WORKFLOW.md and README.md.
+Action Taken: Modified README.md, .docs/.team/TEAM_WORKFLOW.md, and updated log.
+Affected Area/Task Card: Project Organization

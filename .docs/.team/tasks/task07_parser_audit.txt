@@ -11,6 +11,7 @@ REQUIREMENTS:
 - Verify Edge Cases EC01 (Empty/Whitespace strings) and EC04 (Min/Max Int bounds).
 - Verify Error Case E03 (Integer overflow).
 - Ensure no slice out-of-bounds panics can ever reach the user.
+- Review code against `CLI-Good-Practices-Checklist.md`.
 
 FILES TO CREATE/MODIFY:
 - internal/parser/*_test.go
@@ -23,5 +24,5 @@ ACCEPTANCE CRITERIA / TEST CASES:
 DEFINITION OF DONE:
 - [ ] Edge case tests written and passing.
 - [ ] Race detector shows 0 warnings.
-- [ ] Code formatted with `gofmt`.
+- [ ] Code formatted with `gofmt -s`.
 - [ ] AI index log entries added to `.ai/hmim.ai.txt`.

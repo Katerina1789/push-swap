@@ -7,7 +7,7 @@ DESCRIPTION:
 Implement the primary scalable algorithm (e.g., Radix, Chunking, or LIS) capable of handling larger data sets within strict operation limits.
 
 REQUIREMENTS:
-- Create `internal/sorter/large.go`.
+- Create `internal/sorter/large.go` (or algorithm-specific name).
 - Sort 100 numbers in strictly < 700 instructions.
 - Sort 500 numbers in strictly < 5500 instructions.
 - Integrate the logic into `cmd/push-swap/main.go` to route automatically based on input size.
@@ -23,5 +23,5 @@ ACCEPTANCE CRITERIA / TEST CASES:
 DEFINITION OF DONE:
 - [ ] Core logic is fully implemented and executes without runtime errors.
 - [ ] Integration tested with the checker executable successfully.
-- [ ] Execution verified via `go test -race` for memory/race leaks.
+- [ ] Performance verified with `testdata/bench/large_input.txt`.
 - [ ] AI index log entries added to `.ai/hmim.ai.txt`.

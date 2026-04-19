@@ -24,5 +24,6 @@ ACCEPTANCE CRITERIA / TEST CASES:
 
 DEFINITION OF DONE:
 - [ ] Core logic is fully implemented and executes without runtime errors.
-- [ ] Algorithm benchmark tests are passing.
+- [ ] Algorithm benchmark tests are passing (Limits: 3/12 instructions).
+- [ ] Logic is decoupled from `os.Stdout` to allow for unit testing.
 - [ ] AI index log entries added to `.ai/hmim.ai.txt`.

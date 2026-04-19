@@ -90,7 +90,7 @@ Before writing any implementation logic, thoroughly review `PRD.md`. You must al
   - **Team Alignment:** Identify and clarify any ambiguities or newly discovered edge cases with the team before writing code.
 
 ### 2. Working with Tasks
-1. Claim an unassigned Task Card in the `../../.tasks/` directory that fits your role.
+1. Claim an unassigned Task Card in the `.docs/.team/tasks/` directory that fits your role.
 2. Update the `STATUS` on the card to `IN PROGRESS`.
 3. Update the card to `DONE` only when your work satisfies all *Acceptance Criteria* and the *Definition of Done*.
 4. **Status Update Rule:** Update checklist items incrementally. Commit task status updates within the same logical commit as the related code or docs change.

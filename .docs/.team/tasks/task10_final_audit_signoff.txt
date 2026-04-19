@@ -8,7 +8,7 @@ Conduct the final pre-release team review. Verify that the entire project strict
 
 REQUIREMENTS:
 - Review the codebase collectively against `CLI-Good-Practices-Checklist.md` and `Testing-Good-Practices-Checklist.md`.
-- Verify Standard Library only compliance (`go list -deps ./...`).
+- Verify Standard Library only compliance via `go list -deps ./... | grep -v "push-swap"`.
 - Confirm all previous tasks (TASK-01 to TASK-09) are marked DONE.
 - Simulate the final audit defense together by running through `audit-cases.md` live.
 - Polish the root `README.md` with final instructions.
