@@ -99,3 +99,34 @@ Model Used: Gemini Code Assist
 Discussion Summary: User requested to format the root README.md based on the provided teamREADME.md template. Tailored the new README.md with push-swap specific project data, removing web-specific boilerplate sections.
 Action Taken: Modified README.md and appended AI log entry.
 Affected Area/Task Card: Root README.md refinement
+
+Date: 2026-04-19
+Model Used: Gemini Code Assist
+Discussion Summary: Summarized project scaffolding; finalized the transition to dual binaries in /cmd/ and established 'sorter/' as the domain package name. 
+Action Taken: Structure alignment and entry point cleanup.
+Affected Area/Task Card: Project Scaffolding, Architecture Alignment
+
+Date: 2026-04-19
+Model Used: Gemini Code Assist
+Discussion Summary: Implemented centralized error handling via internal/errs/errs.go. Defined the use of package-local 'testdata/' directories for fuzzing seeds and golden files to maintain idiomatic Go testing standards.
+Action Taken: Implemented internal/errs/errs.go and created testdata/ scaffolding for parser.
+Affected Area/Task Card: internal/errs, internal/parser, Testing Strategy
+
+Date: 2026-04-19
+Model Used: Gemini Code Assist
+Discussion Summary: Formalized the 'testdata/' directory guideline in the Team Workflow. Included architectural examples for fuzz, golden, and benchmark data, alongside a code snippet for Golden Test implementation.
+Action Taken: Modified .docs/.team/TEAM_WORKFLOW.md and updated log.
+Affected Area/Task Card: .team workflow, Testing Strategy
+
+
+Date: 2026-04-19
+Model Used: Gemini Code Assist
+Discussion Summary: Finalized the root README.md to reflect the dual-binary structure (cmd/), modular internal package organization (sorter, parser, errs), and the new testing standards using testdata/ for fuzzing and golden files.
+Action Taken: Re-drafted root README.md and updated AI log.
+Affected Area/Task Card: Root README.md refinement
+
+Date: 2026-04-19
+Model Used: Gemini Code Assist
+Discussion Summary: Synchronized the PRD.md with the finalized project architecture (dual binaries in /cmd/), the fail-fast error strategy (internal/errs), and technical constraints (Go 1.25.6+, pre-allocation strategy).
+Action Taken: Modified .docs/PRD.md and updated AI log.
+Affected Area/Task Card: .docs/PRD.md refinement, Project Roadmap
