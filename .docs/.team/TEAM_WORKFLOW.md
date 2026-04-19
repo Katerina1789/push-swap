@@ -36,6 +36,50 @@ We follow a strict KISS (Keep It Simple, Stupid) and YAGNI (You Aren't Gonna Nee
 ### Testing Requirements
 - **Coverage:** All new features and bug fixes require corresponding unit tests.
 - **Pre-commit Rule:** Tests must pass locally before pushing. Do not push failing code.
+- **Test Data Management:** Use package-local `testdata/` directories to store complex inputs, golden files, and fuzz seeds. These directories are ignored by the Go build tool but are accessible to your tests.
+
+#### Example Implementation
+Example of a `testdata/` structure for the `internal/parser` package:
+
+```text
+internal/
+    parser/
+        parser.go
+        validator.go
+        parser_test.go
+        validator_test.go
+        testdata/
+            fuzz/
+                seed_corpus.txt  # Contains various valid and invalid input strings for fuzz testing.
+            golden/
+                small_input.golden  # Expected output for a small set of numbers.
+                large_input.golden  # Expected output for a large set of numbers.
+            bench/
+                large_input.txt  # A file containing 500 unique random integers for benchmarking.
+```
+
+#### Example: Golden Test Using `testdata/`
+```go
+package parser
+
+import (
+    "os"
+    "testing"
+)
+
+func TestParse_SmallInput(t *testing.T) {
+    input := "3 1 2"
+    expectedBytes, err := os.ReadFile("testdata/golden/small_input.golden")
+    if err != nil {
+        t.Fatalf("Failed to read golden file: %v", err)
+    }
+    expected := string(expectedBytes)
+    // ... compare result with expected ...
+}
+```
+*In this example, the test reads the expected output from a golden file. This keeps test code clean and allows you to easily update expected outputs without changing the test logic.*
+
+
 
 ## Workflow Implementation
 
