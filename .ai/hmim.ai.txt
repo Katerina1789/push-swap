@@ -130,3 +130,9 @@ Model Used: Gemini Code Assist
 Discussion Summary: Synchronized the PRD.md with the finalized project architecture (dual binaries in /cmd/), the fail-fast error strategy (internal/errs), and technical constraints (Go 1.25.6+, pre-allocation strategy).
 Action Taken: Modified .docs/PRD.md and updated AI log.
 Affected Area/Task Card: .docs/PRD.md refinement, Project Roadmap
+
+Date: 2026-04-19
+Model Used: Gemini Code Assist
+Discussion Summary: Refined the TEAM_WORKFLOW.md to transform the general error handling requirement into a mandatory guideline. Explicitly prohibited manual stderr printing in favor of using the internal/errs package to ensure audit compliance.
+Action Taken: Modified .docs/.team/TEAM_WORKFLOW.md and updated log.
+Affected Area/Task Card: .team workflow, internal/errs

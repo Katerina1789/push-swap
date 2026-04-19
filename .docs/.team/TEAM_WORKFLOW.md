@@ -29,7 +29,7 @@ We follow a strict KISS (Keep It Simple, Stupid) and YAGNI (You Aren't Gonna Nee
 
 ### Code Quality & Standards
 - **Formatting:** Code MUST be formatted (e.g., with `gofmt`) before any commit.
-- **Error Handling:** Handle all errors gracefully. Print exactly `Error\n` to stderr and exit with code 1 on bad inputs. No `panic()` in production code.
+- **Error Handling:** Use the centralized `internal/errs` package for all validation failures. Do not manually print to `stderr` to ensure 100% audit consistency. No `panic()` in production code.
 - **Security & Performance:** Validate all inputs to prevent vulnerabilities. Write efficient code avoiding unnecessary allocations (e.g., pre-allocate slice capacities).
 - **Documentation:** Public functions and types must have clear inline comments. Keep the `.docs/` directory updated when features change.
 

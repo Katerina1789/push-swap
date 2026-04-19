@@ -64,6 +64,7 @@ OK
 
 The project follows a **Modular CLI Pipeline** architecture, isolating core business logic within the `internal/` package:
 
+- **`internal/errs`**: Centralized package for the mandatory `Error\n` signal and `os.Exit(1)` management.
 - **`internal/stack`**: Manages state for stacks A and B using high-performance slice operations.
 - **`internal/parser`**: Handles string splitting, whitespace sanitization, and strict integer conversion.
 - **`internal/sorter`**: The algorithmic engine that determines the optimal path of instructions.
