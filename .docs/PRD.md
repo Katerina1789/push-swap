@@ -5,12 +5,12 @@
 **Context:**  
 We need two Go CLI applications: a sorting algorithm calculator (`push-swap`) and a validation tool (`checker`). The project relies on sorting a list of integers using two stacks (`a` and `b`) and a highly restricted set of operations (push, swap, rotate, reverse rotate).
 
-**Core Function:**  
-- **`push-swap`**: Receives a list of integers as arguments and outputs the shortest possible sequence of formatting instructions to sort the stack in ascending order.
-- **`checker`**: Receives the same list of integers as arguments, reads the generated instructions from standard input, applies them to the stacks, and outputs whether the final state is successfully sorted (`OK`) or not (`KO`).
+**Core Function:**
+1. **`push-swap`**: Receives a list of integers as arguments and outputs the shortest possible sequence of formatting instructions to sort the stack in ascending order.
+2. **`checker`**: Receives the same list of integers as arguments, reads the generated instructions from standard input, applies them to the stacks, and outputs whether the final state is successfully sorted (`OK`) or not (`KO`).
 
 **Constraints:**  
-- Must be written in Go.
+- Must be written in Go (Target version: 1.25.6+).
 - Must use the Go Standard Library **only** (no third-party packages).
 - Strict execution benchmarks: e.g., < 12 instructions for 5 numbers, < 700 instructions for 100 numbers.
 - Strict error formatting: Must print exactly `Error\n` to `stderr` on any validation failure.
@@ -123,7 +123,7 @@ The program follows a **fail-fast** strategy.
 The project follows a **Modular CLI Pipeline** architecture. Because there are two separate executables (`push-swap` and `checker`) that share 90% of their logic, almost all code will live in a shared `/internal` directory.
 - **Pattern:** Shared Core Library (`/internal`) with distinct execution entry points (`/cmd`).
 - **Reasoning:** Prevents code duplication, ensures both binaries use the exact same validation and instruction rules, and isolates the core logic for easier unit testing.
-- **Tradeoffs we accept:** Passing state via slices requires careful memory management. We will trade slightly higher memory usage (pre-allocating slice capacities) to gain execution speed, avoiding heavy slice reallocation during rapid sorting operations.
+- **Tradeoffs & Strategy:** We prioritize execution speed for massive stacks (500 items). We will use **Zero-Value usable** structures and trade memory (pre-allocating slice capacities based on argument count) to avoid reallocation during rapid sorting operations.
 
 ---
 
@@ -145,16 +145,18 @@ graph TD
 ```
 
 ### 7.3 Module Responsibilities
-- **Input Layer (`cmd/`, `parser/`):** Reads `os.Args` or `stdin`, handles string splitting, whitespace sanitization, and strict integer conversion.
-- **Domain Model (`stack/`, `operations/`):** Manages the `a` and `b` state structures. Exposes exactly 11 safe mutation methods (`sa`, `pa`, `rr`, etc.).
-- **Core Engine (`sorter/`):** The algorithmic heart (e.g., Radix or LIS) that determines the optimal path of instructions for `push-swap`.
-- **Output Layer:** Purely responsible for printing formatted results to `stdout` or fail-fast signals to `stderr`.
+1. **Entry Points (`cmd/`)**: Minimal orchestration logic for `push-swap` and `checker` binaries.
+2. **Input Layer (`internal/parser/`)**: Handles argument sanitization, whitespace handling, and duplicate detection.
+3. **Error Handling (`internal/errs/`)**: Centralized package for the mandatory `Error\n` signal and `os.Exit(1)` management.
+4. **Domain Model (`internal/stack/`, `internal/operations/`)**: Manages `a` and `b` state. Implements the 11 atomic mutations.
+5. **Sorting Engine (`internal/sorter/`)**: Contains small-sort heuristics and scalable algorithms (Radix/Chunk).
+6. **Output Layer**: Shared logic for printing valid instructions or evaluation results (`OK`/`KO`).
 
 ---
 
 ## 8. Milestones & Roadmap
 
-- **Milestone 1: Foundation** - Environment setup, input parsing (`""`, duplicates, non-integers), and base Stack data structures.
+- **Milestone 1: Foundation** - Skeleton setup, `testdata/` scaffolding, strict input parsing, and high-performance Stack structures.
 - **Milestone 2: Operations & Checker** - Implementing the 11 strict operations (`sa`, `pb`, etc.) and fully building the `checker` to serve as our internal testing oracle.
 - **Milestone 3: Base Sorting Logic** - Implementing hard-coded, specialized sorts for small sets (3 to 5 numbers) to comfortably pass the `<12 instructions` benchmark.
 - **Milestone 4: Advanced Algorithm Integration** - Implementing the primary scalable sorting algorithm (e.g., Radix Sort, Chunk Sort, or Longest Increasing Subsequence) to handle 100/500 numbers within benchmark limits.
