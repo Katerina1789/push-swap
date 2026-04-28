@@ -9,8 +9,13 @@ import (
 	"os"
 )
 
+// ExitFunc allows tests to override os.Exit.
+var ExitFunc = func() {
+	os.Exit(1)
+}
+
 // ExitWithError prints the mandatory error message to stderr and exits with status 1.
 func ExitWithError() {
 	fmt.Fprintln(os.Stderr, "Error")
-	os.Exit(1)
+	ExitFunc()
 }
