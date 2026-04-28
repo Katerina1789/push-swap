@@ -1,7 +1,7 @@
 TASK ID: TASK-01
 TITLE: Core Stack Data Structure
 ROLE: Systems Architect
-STATUS: TODO
+STATUS: IN PROGRESS
 
 DESCRIPTION:
 Implement the foundational `Stack` data structure to manage the state of stacks A and B. It must be designed as a "Zero-Value usable" structure and utilize pre-allocation strategies to minimize heap allocations during large sorts.
