@@ -1,7 +1,7 @@
 TASK ID: TASK-02
 TITLE: CLI Input Parsing & Validation
 ROLE: Systems Architect
-STATUS: TODO
+STATUS: IN PROGRESS
 
 DESCRIPTION:
 Implement a robust parser to sanitize input strings from `os.Args`. It must integrate with `internal/errs` to satisfy the mandatory `Error\n` output and handle complex string formatting (quoted arguments, whitespace-only, etc.).
