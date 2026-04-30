@@ -3,3 +3,11 @@ Model Used: Amazon Q
 Discussion Summary: User requested creation of operator_test.go with comprehensive table-driven tests for the push-swap operations (Sa, Sb, Ss, Pa, Pb, Ra, Rb, Rr, Rra, Rrb, Rrr). Provided detailed comments explaining edge cases, core behavior, and verification scenarios. Replaced reflect.DeepEqual with manual element-by-element comparison for audit clarity.
 Action Taken: Created .internal/operations/operator_test.go with 11 test functions covering all stack operations, helper functions for test setup and assertions, and descriptive comments for each test case. All tests pass with go test -v.
 Affected Area/Task Card: Operations testing, audit compliance
+
+---
+
+Date: 2026-04-30
+Model Used: GitHub Copilot
+Discussion Summary: User requested refactoring of ops.go and ops_test.go to use the unified stack.Stack implementation instead of direct struct definitions. Updated package name from 'operations' to 'ops' for consistency with import paths. Implemented helper functions (stackOf, readItems) for test infrastructure to work with stack.Stack public methods (Push, Pop, Len, IsEmpty). Fixed all 11 stack operations to use stack.Stack methods instead of direct slice manipulation. Updated checker main.go to use stack.Stack with proper initialization and sorting verification logic. Created comprehensive test coverage for all operation edge cases and core behaviors.
+Action Taken: Refactored internal/ops/ops.go to import stack.Stack as type alias; updated all operations (SwapA, SwapB, SwapBoth, PushA, PushB, RotateA, RotateB, RotateBoth, ReverseRotateA, ReverseRotateB, ReverseRotateBoth) to use stack methods. Rewrote internal/ops/ops_test.go with stack.Stack integration, corrected test expectations for stack semantics. Updated cmd/checker/main.go to properly initialize stacks, execute all 11 instructions, and verify sorted state. Verified all tests pass with go test ./internal/ops.
+Affected Area/Task Card: TASK-04 Checker Executable Pipeline, stack operations integration, audit compliance
