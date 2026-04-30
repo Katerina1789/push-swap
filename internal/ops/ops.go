@@ -1,25 +1,28 @@
 // Operator for defining the operations available in the push_swap algorithm
 // (push, swap, rotate, reverse rotate).
-package operations
+package ops
 
-// We assume the Stack structure looks like this. 
-type Stack struct {
-	Items []int
-}
+import "push-swap/internal/stack"
 
-// SwapA swaps the first 2 elements at the top of stack a.
+type Stack = stack.Stack
+
+// SwapA swaps the top 2 elements at the top of stack a.
 // If stack a has fewer than 2 elements, this operation does nothing.
 func SwapA(a *Stack) {
-	if a == nil || len(a.Items) < 2 {
+	if a == nil || a.Len() < 2 {
 		return
 	}
-	a.Items[0], a.Items[1] = a.Items[1], a.Items[0]
+
+	top, _ := a.Pop()
+	second, _ := a.Pop()
+	a.Push(top)
+	a.Push(second)
 }
 
 // SwapB swaps the first 2 elements at the top of stack b.
 // If stack b has fewer than 2 elements, this operation does nothing.
 func SwapB(b *Stack) {
-	SwapA(b) // Reuse the same logic as SwapA
+	SwapA(b)
 }
 
 // SwapBoth performs SwapA and SwapB simultaneously on both stacks.
@@ -31,15 +34,12 @@ func SwapBoth(a *Stack, b *Stack) {
 // PushA moves the top element from stack b to the top of stack a.
 // If stack b is empty, this operation does nothing.
 func PushA(a *Stack, b *Stack) {
-	if b == nil || len(b.Items) == 0 {
+	if b == nil || b.IsEmpty() {
 		return
 	}
-	// Extract the top element from stack B
-	topElement := b.Items[0]
-	// Remove it from stack B
-	b.Items = b.Items[1:]
-	// Insert it at the top of stack A
-	a.Items = append([]int{topElement}, a.Items...)
+
+	val, _ := b.Pop()
+	a.Push(val)
 }
 
 // PushB moves the top element from stack a to the top of stack b.
@@ -48,18 +48,26 @@ func PushB(a *Stack, b *Stack) {
 	PushA(b, a) // Reuse the logic by swapping the arguments
 }
 
-// RotateA shifts all elements in stack a upward by 1 position.
-// The element at the top (index 0) moves to the bottom.
+// RotateA shifts the top element of stack a to the bottom.
 func RotateA(a *Stack) {
-	if a == nil || len(a.Items) < 2 {
+	if a == nil || a.Len() < 2 {
 		return
 	}
-	top := a.Items[0]
-	a.Items = append(a.Items[1:], top)
+
+	top, _ := a.Pop()
+	buffer := make([]int, 0, a.Len())
+	for !a.IsEmpty() {
+		val, _ := a.Pop()
+		buffer = append(buffer, val)
+	}
+
+	a.Push(top)
+	for i := len(buffer) - 1; i >= 0; i-- {
+		a.Push(buffer[i])
+	}
 }
 
-// RotateB shifts all elements in stack b upward by 1 position.
-// The element at the top (index 0) moves to the bottom.
+// RotateB shifts the top element of stack b to the bottom.
 func RotateB(b *Stack) {
 	RotateA(b)
 }
@@ -70,19 +78,26 @@ func RotateBoth(a *Stack, b *Stack) {
 	RotateB(b)
 }
 
-// ReverseRotateA shifts all elements in stack a downward by 1 position.
-// The element at the bottom moves to the top.
+// ReverseRotateA shifts the bottom element of stack a to the top.
 func ReverseRotateA(a *Stack) {
-	if a == nil || len(a.Items) < 2 {
+	if a == nil || a.Len() < 2 {
 		return
 	}
-	lastIdx := len(a.Items) - 1
-	bottom := a.Items[lastIdx]
-	a.Items = append([]int{bottom}, a.Items[:lastIdx]...)
+
+	buffer := make([]int, 0, a.Len())
+	for a.Len() > 1 {
+		val, _ := a.Pop()
+		buffer = append(buffer, val)
+	}
+
+	bottom, _ := a.Pop()
+	for i := len(buffer) - 1; i >= 0; i-- {
+		a.Push(buffer[i])
+	}
+	a.Push(bottom)
 }
 
-// ReverseRotateB shifts all elements in stack b downward by 1 position.
-// The element at the bottom moves to the top.
+// ReverseRotateB shifts all elements in stack b to the top.
 func ReverseRotateB(b *Stack) {
 	ReverseRotateA(b)
 }
