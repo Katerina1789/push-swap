@@ -2,20 +2,33 @@
 package main
 
 import (
+	"fmt"
 	"os"
+
 	"push-swap/internal/parser"
+	"push-swap/internal/sorter"
+	"push-swap/internal/stack"
 )
 
 func main() {
-	// Parse and validate input arguments.
 	nums := parser.Parse(os.Args[1:])
 
-	// If already sorted or empty, output nothing.
 	if len(nums) <= 1 || isSorted(nums) {
 		return
 	}
 
-	// TODO: Implement sorting algorithm.
+	n := len(nums)
+	a := stack.NewStack(n)
+	b := stack.NewStack(n)
+
+	// Push in reverse so nums[0] ends up on top.
+	for i := n - 1; i >= 0; i-- {
+		a.Push(nums[i])
+	}
+
+	sorter.Sort(a, b, func(s string) {
+		fmt.Println(s)
+	})
 }
 
 // isSorted checks if the slice is in ascending order.

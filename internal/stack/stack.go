@@ -46,3 +46,8 @@ func (s *Stack) IsEmpty() bool {
 func (s *Stack) Len() int {
 	return len(s.data)
 }
+
+// At returns the element at logical depth i from the top (0 = top, Len-1 = bottom).
+func (s *Stack) At(i int) int {
+	return s.data[len(s.data)-1-i]
+}
