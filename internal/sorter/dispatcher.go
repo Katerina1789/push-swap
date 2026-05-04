@@ -56,7 +56,7 @@ func Sort(a, b *Stack, emit func(string)) {
 			}
 		}
 
-		sortRadix(a, b, emit, n)
+		sortChunk(a, b, emit, n)
 	}
 }
 

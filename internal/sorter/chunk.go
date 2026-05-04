@@ -4,10 +4,10 @@ import (
 	"push-swap/internal/ops"
 )
 
-// sortRadix implements the "Butterfly" algorithm.
+// sortChunk implements the "Butterfly" algorithm.
 // It partitions A into B using a sliding window to minimize rotations,
 // then pushes back to A in perfect order.
-func sortRadix(a, b *Stack, emit func(string), n int) {
+func sortChunk(a, b *Stack, emit func(string), n int) {
 	chunkSize := calculateChunkSize(n)
 
 	// Part 1: Partition A into B.
@@ -42,7 +42,7 @@ func sortRadix(a, b *Stack, emit func(string), n int) {
 		pos := findRankPos(b, target)
 
 		// Bring the target element to the top of B.
-		moveToTopB(a, b, pos, emit)
+		moveToTopB(b, pos, emit)
 
 		// Push to A.
 		ops.PushA(a, b)
@@ -51,7 +51,7 @@ func sortRadix(a, b *Stack, emit func(string), n int) {
 }
 
 // moveToTopB brings an element at pos to the top of stack b using the shortest path.
-func moveToTopB(a, b *Stack, pos int, emit func(string)) {
+func moveToTopB(b *Stack, pos int, emit func(string)) {
 	size := b.Len()
 	if pos <= size/2 {
 		for i := 0; i < pos; i++ {
