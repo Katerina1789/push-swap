@@ -94,12 +94,12 @@ The program follows a **fail-fast** strategy.
 *To satisfy the Definition of Done (DoD), the project must pass the modular testing suite. Detailed case execution is delegated to the specific test documents provided in `.docs/` directory, such as `golden-tests.md`*.
 
 ### 6.1 Core Functionality & Audit Cases
-- [ ] **Audit Case C02**: Valid Sorting | 
+- [x] **Audit Case C02**: Valid Sorting | 
 **Input Argument**: `./push-swap "2 1 3 6 5 8"` | **Expected Behavior/Output**: Valid solution & less than 9 instructions.
-- [ ] **Audit Case C06**: Benchmark: 5 Random Nums | **Input Argument**: `./push-swap "<5 random numbers>"` | **Expected Behavior/Output**: Valid solution & less than 12 instructions.
+- [x] **Audit Case C06**: Benchmark: 5 Random Nums | **Input Argument**: `./push-swap "<5 random numbers>"` | **Expected Behavior/Output**: Valid solution & less than 12 instructions.
 - [ ] **Audit Case C09**: Incorrect Instructions | **Input Argument**: `echo -e "sa\npb\nrrr\n" \| ./checker "0 9 1 8 2 7 3 6 4 5"` | **Expected Behavior/Output**: `KO\n` on standard output.
 - [ ] **Audit Case C10**: Correct Instructions | **Input Argument**: `echo -e "pb\nra\npb\nra\nsa\nra\npa\npa\n" \| ./checker "0 9 1 8 2"` | **Expected Behavior/Output**: `OK\n` on standard output.
-- [ ] **Audit Case C12**: Benchmark: 100 Random Nums | **Input Argument**: `ARG="<100 random numbers>"; ./push-swap "$ARG"` | **Expected Behavior/Output**: Valid solution & less than 700 instructions.
+- [x] **Audit Case C12**: Benchmark: 100 Random Nums | **Input Argument**: `ARG="<100 random numbers>"; ./push-swap "$ARG"` | **Expected Behavior/Output**: Valid solution & less than 700 instructions.
 
 ### 6.2 Error & Validation Cases
 - [ ] **Error Case E01**: Non-integer argument | **Input Argument**: `./push-swap "0 one 2 3"` | **Expected Behavior/Output**: `Error\n` on stderr.
@@ -110,10 +110,10 @@ The program follows a **fail-fast** strategy.
 
 ### 6.3 Edge & Boundary Cases
 - [ ] **Edge Case EC01**: Empty or Whitespace String | **Input Argument**: `./push-swap ""` / `"   "` | **Expected Behavior/Output**: `Error\n` on stderr. (Fails integer parsing).
-- [ ] **Edge Case EC02**: Single Number | **Input Argument**: `./push-swap "42"` | **Expected Behavior/Output**: Displays nothing (already sorted).
-- [ ] **Edge Case EC03**: Already Sorted | **Input Argument**: `./push-swap "1 2 3 4"` | **Expected Behavior/Output**: Displays nothing (0 instructions).
-- [ ] **Edge Case EC04**: Max/Min Int bounds | **Input Argument**: `./push-swap "2147483647 -2147483648 0"` | **Expected Behavior/Output**: Parsed correctly and outputs valid sorting instructions.
-- [ ] **Edge Case EC05**: Massive Stack | **Input Argument**: `./push-swap "<500 random numbers>"` | **Expected Behavior/Output**: Executes quickly without memory leaks.
+- [x] **Edge Case EC02**: Single Number | **Input Argument**: `./push-swap "42"` | **Expected Behavior/Output**: Displays nothing (already sorted).
+- [x] **Edge Case EC03**: Already Sorted | **Input Argument**: `./push-swap "1 2 3 4"` | **Expected Behavior/Output**: Displays nothing (0 instructions).
+- [x] **Edge Case EC04**: Max/Min Int bounds | **Input Argument**: `./push-swap "2147483647 -2147483648 0"` | **Expected Behavior/Output**: Parsed correctly and outputs valid sorting instructions.
+- [x] **Edge Case EC05**: Massive Stack | **Input Argument**: `./push-swap "<500 random numbers>"` | **Expected Behavior/Output**: Executes quickly without memory leaks.
 
 ---
 
@@ -149,7 +149,7 @@ graph TD
 2. **Input Layer (`internal/parser/`)**: Handles argument sanitization, whitespace handling, and duplicate detection.
 3. **Error Handling (`internal/errs/`)**: Centralized package for the mandatory `Error\n` signal and `os.Exit(1)` management.
 4. **Domain Model (`internal/stack/`, `internal/operations/`)**: Manages `a` and `b` state. Implements the 11 atomic mutations.
-5. **Sorting Engine (`internal/sorter/`)**: Contains small-sort heuristics and scalable algorithms (Radix/Chunk).
+5. **Sorting Engine (`internal/sorter/`)**: Three-file engine — `dispatcher.go` (routing + rank normalisation), `hardcoded.go` (BFS-optimal tables for n=2..6), `chunk.go` (Butterfly sliding-window for n>6).
 6. **Output Layer**: Shared logic for printing valid instructions or evaluation results (`OK`/`KO`).
 
 ---

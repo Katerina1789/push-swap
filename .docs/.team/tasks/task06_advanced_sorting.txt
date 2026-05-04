@@ -1,7 +1,7 @@
 TASK ID: TASK-06
 TITLE: Advanced Sorting Algorithm (N=100/500)
 ROLE: Algorithm Specialist
-STATUS: TODO
+STATUS: DONE
 
 DESCRIPTION:
 Implement the primary scalable algorithm (e.g., Radix, Chunking, or LIS) capable of handling larger data sets within strict operation limits.
@@ -21,7 +21,7 @@ ACCEPTANCE CRITERIA / TEST CASES:
 - CLI Example: Input: `ARG=$(shuf -i 1-1000 -n 500 | tr '\n' ' '); ./push-swap $ARG | wc -l` -> Expected: `< 5500`
 
 DEFINITION OF DONE:
-- [ ] Core logic is fully implemented and executes without runtime errors.
-- [ ] Integration tested with the checker executable successfully.
-- [ ] Performance verified with `testdata/bench/large_input.txt`.
-- [ ] AI index log entries added to `.ai/hmim.ai.txt`.
+- [x] Core logic is fully implemented and executes without runtime errors.
+- [x] Integration tested with the checker executable successfully.
+- [x] Performance verified with `testdata/bench/large_input.txt`.
+- [x] AI index log entries added to `.ai/hmim.ai.txt`.

@@ -19,8 +19,10 @@ This document outlines the standard audit cases to verify the core functional re
 | C09 | Incorrect Instructions | `echo -e "sa\npb\nrrr\n" \| ./checker "0 9 1 8 2 7 3 6 4 5"` | `KO\n` on standard output. |
 | C10 | Correct Instructions | `echo -e "pb\nra\npb\nra\nsa\nra\npa\npa\n" \| ./checker "0 9 1 8 2"` | `OK\n` on standard output. |
 | C11 | Integration (push-swap + checker) | `ARG="4 67 3 87 23"; ./push-swap "$ARG" \| ./checker "$ARG"` | `OK\n` on standard output. |
-| C12 | Benchmark: 100 Random Nums | `ARG="<100 random numbers>"; ./push-swap "$ARG"` | Valid solution & less than 700 instructions. |
+| C12 | Benchmark: 100 Random Nums | `ARG="<100 random numbers>"; ./push-swap "$ARG"` | Valid solution & less than `700` instructions. |
 | C13 | Integration: 100 Random Nums | `ARG="<100 random numbers>"; ./push-swap "$ARG" \| ./checker "$ARG"` | `OK\n` on standard output. |
+| C14 | Benchmark: 500 Random Nums | `ARG="<500 random numbers>"; ./push-swap "$ARG"` | Valid solution & less than `5500` instructions. |
+| C15 | Integration: 100 Random Nums | `ARG="<500 random numbers>"; ./push-swap "$ARG" \| ./checker "$ARG"` | `OK\n` on standard output. |
 
 ---
 
@@ -85,7 +87,7 @@ echo -e "pb\nra\npb\nra\nsa\nra\npa\npa\n" | ./checker "0 9 1 8 2"
 
 ---
 
-### Audit Case C11 & C13: Full Integration
+### Audit Case C11, C13 & C15: Full Integration
 **Description:**  
 Tests the seamless pipeline between both programs. `push-swap` generates instructions which are immediately piped to `checker`.
 
@@ -107,4 +109,25 @@ Tests the algorithm's performance and efficiency at a medium scale.
 ARG="<100 random different numbers>"; ./push-swap "$ARG" | wc -l
 ```
 **Validation Rules:**
-- **Instruction Count:** The total number of instructions outputted by `push-swap` must be strictly less than 700.
+- **Instruction Count:** The total number of instructions outputted by `push-swap` must be strictly less than 650.
+### Audit Case C12: Benchmark (100 Numbers)
+**Description:**  
+Tests the algorithm's performance and efficiency at a medium scale.
+
+**Input Argument:**
+```bash
+ARG=$(shuf -i 1-1000 -n 100 | tr '\n' ' '); ./push-swap $ARG | wc -l
+```
+**Validation Rules:**
+- **Instruction Count:** The total number of instructions outputted by `push-swap` must be strictly less than 650.
+
+### Audit Case C14: Benchmark (500 Numbers)
+**Description:**  
+Tests the algorithm's performance and efficiency at a medium scale.
+
+**Input Argument:**
+```bash
+ARG=$(shuf -i 1-1000 -n 500 | tr '\n' ' '); ./push-swap $ARG | wc -l
+```
+**Validation Rules:**
+- **Instruction Count:** The total number of instructions outputted by `push-swap` must be strictly less than 5500.

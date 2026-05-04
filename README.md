@@ -3,8 +3,8 @@
 ![Go Version](https://img.shields.io/badge/Go-1.25.6-blue.svg)
 ![Standard Library](https://img.shields.io/badge/StdLib-Only-orange.svg)
 ![License](https://img.shields.io/badge/License-MIT-brightgreen.svg)
-![Build Status](https://img.shields.io/badge/Build-InProcess-yellow.svg)
-![Test Coverage](https://img.shields.io/badge/Coverage-0%25-darkred.svg)
+![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen.svg)
+![Test Coverage](https://img.shields.io/badge/Coverage-sorter%2Fops%2Fparser-blue.svg)
 
 [![01](https://img.shields.io/badge/zone01-Athens-916ADE?&labelColor=181717&style=for-the-badge&logo=data:image/svg%2Bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PHBhdGggZD0iTTEyIDJMMiA3bDEwIDUgMTAtNS0xMC01eiIvPjxwYXRoIGQ9Ik0yIDE3bDEwIDUgMTAtNU0yIDEybDEwIDUgMTAtNSIvPjwvc3ZnPg==)](https://github.com/01-edu/public/tree/master/subjects/ascii-art-web)
 
@@ -18,9 +18,9 @@ A highly optimized sorting algorithm calculator and validation suite developed i
 
 ## Team & Roles
 
-- **Systems Architect**: [Name] - Core Stack, Input Parsing, Memory Audit.
-- **QA & Integration**: [Name] - Operations, Checker, Golden Test Pipeline.
-- **Algorithm Specialist**: hmim - Sorting Heuristics, Benchmarking, Performance.
+- **kkasdana - Systems Architect**: Core Stack, Input Parsing, Memory Audit.
+- **ebasou - QA & Integration**: Operations, Checker, Golden Test Pipeline.
+- **hmim - Algorithm Specialist & Technical Documentation**: Sorting Heuristics, Benchmarking, Performance.
 
 ## Installation
 
@@ -53,22 +53,52 @@ $ ARG="4 67 3 87 23"; ./push-swap "$ARG" | ./checker "$ARG"
 OK
 ```
 
+### Benchmarking
+
+To verify the instruction count and validity for large sets of random numbers, you can use the following commands:
+
+**100 random numbers:**
+```bash
+# To verify the sorting result
+ARG=$(shuf -i 1-1000 -n 100 | tr '\n' ' '); ./push-swap $ARG | ./checker $ARG
+
+# To count the number of instructions
+ARG=$(shuf -i 1-1000 -n 100 | tr '\n' ' '); ./push-swap $ARG | wc -l
+```
+
+**500 random numbers:**
+```bash
+# To verify the sorting result
+ARG=$(shuf -i 1-1000 -n 500 | tr '\n' ' '); ./push-swap $ARG | ./checker $ARG
+
+# To count the number of instructions
+ARG=$(shuf -i 1-1000 -n 500 | tr '\n' ' '); ./push-swap $ARG | wc -l
+```
+
 ## Features
 
-- **Optimized Sorting**: Specialized heuristics for small sets (2-5 numbers) and a scalable algorithm (e.g., Radix or Chunk Sort) for massive stacks.
+- **BFS-Optimal Small Sort**: Hardcoded lookup tables for n=2..6, pre-computed via BFS, guaranteeing the minimum possible instruction count for every permutation (n=3 ≤ 2 ops, n=5 ≤ 10 ops).
+- **Butterfly Chunk Algorithm**: A two-phase sliding-window partition strategy for n>6 — elements are pushed to B in chunks of 16 (n≤100) or 32 (n>100), then pulled back in perfect descending order. Averages ~577 ops for n=100 and stays well under 5500 for n=500.
+- **Smart Dispatcher**: Automatically selects the right algorithm and short-circuits already-sorted, one-swap, and one-rotation inputs before invoking any heavy logic.
 - **Strict Validation**: Robust fail-fast parsing that rejects duplicates, non-integers, and overflows with a mandatory `Error` signal.
-- **Shared Core Logic**: A unified internal engine ensuring that the `checker` and `push-swap` share the exact same mutation rules.
-- **High Performance**: Pre-allocated memory structures to handle benchmarks of 100 and 500 integers without allocation overhead.
+- **Shared Core Logic**: A unified internal engine ensuring that `checker` and `push-swap` share the exact same mutation rules.
+- **High Performance**: Pre-allocated memory structures; no dynamic re-allocation during sort execution.
 
 ## Algorithm & Architecture
 
 The project follows a **Modular CLI Pipeline** architecture, isolating core business logic within the `internal/` package:
 
 - **`internal/errs`**: Centralized package for the mandatory `Error\n` signal and `os.Exit(1)` management.
-- **`internal/stack`**: Manages state for stacks A and B using high-performance slice operations.
-- **`internal/parser`**: Handles string splitting, whitespace sanitization, and strict integer conversion.
-- **`internal/sorter`**: The algorithmic engine that determines the optimal path of instructions.
-- **`internal/operations`**: Implements the 11 mandatory stack operations (`sa`, `sb`, `ss`, `pa`, `pb`, `ra`, `rb`, `rr`, `rra`, `rrb`, `rrr`).
+- **`internal/stack`**: Manages state for stacks A and B using a pre-allocated slice-based structure.
+- **`internal/parser`**: Argument ingestion pipeline composed of three files:
+  - `parser.go` — entry point (`Parse`); splits single-string and multi-arg formats, rejects empty/whitespace inputs, converts tokens to `int`, calls validators.
+  - `validator.go` — stateless helpers: `isValidInt32` (enforces ±2147483647 bounds), `hasDuplicates` (O(n) map-based check).
+  - `limits.go` — reserved package-level constants for `MaxInt`/`MinInt` boundary configuration.
+- **`internal/sorter`**: The algorithmic engine composed of three files:
+  - `dispatcher.go` — normalizes ranks, short-circuits trivial cases, routes to small or chunk sort.
+  - `hardcoded.go` — BFS-optimal lookup tables for every permutation of n=2..6.
+  - `chunk.go` — Butterfly sliding-window algorithm for n>6.
+- **`internal/ops`**: Implements all 11 mandatory stack operations (`sa`, `sb`, `ss`, `pa`, `pb`, `ra`, `rb`, `rr`, `rra`, `rrb`, `rrr`).
 
 ## Error Handling
 
@@ -85,56 +115,79 @@ This project follows a **fail-fast** philosophy with strict output requirements:
 
 ## Testing
 
-Our testing suite follows Go idiomatic practices, utilizing package-local `testdata/` for comprehensive coverage:
+The test suite follows Go idiomatic practices with table-driven tests, golden-case assertions, and benchmarks.
 
-- **Unit Tests**: Table-driven tests for all internal components.
-- **Golden Tests**: Verification against mandatory audit scenarios and edge cases.
-- **Fuzz Testing**: Stress-testing the parser with randomized input to ensure stability.
-- **Benchmarks**: Tracking instruction counts and memory allocations.
-
-To run the full suite:
 ```bash
+# Full suite — all packages
+go test ./...
+
+# Verbose output (shows each test name and result)
 go test -v ./...
+
+# With race detector
+go test -race ./...
+
+# Coverage report (stdout summary)
+go test -cover ./...
+
+# Coverage report (open HTML in browser)
+go test -coverprofile=coverage.out ./... && go tool cover -html=coverage.out
 ```
 
 ## Performance Benchmarks
 
-| Dataset Size | Instruction Limit | Expected Performance |
+| Dataset Size | Audit Limit | Actual Performance |
 | :--- | :--- | :--- |
-| 3 numbers | 3 | Sorted in ≤ 3 ops |
-| 5 numbers | 12 | Sorted in ≤ 12 ops |
-| 100 numbers | 700 | Sorted in < 700 ops |
-| 500 numbers | 5500 | Sorted in < 5500 ops |
+| 2 numbers | — | 0–1 ops |
+| 3 numbers | — | ≤ 2 ops (BFS-optimal) |
+| 5 numbers | < 12 | ≤ 10 ops (BFS-optimal) |
+| 6 numbers | — | ≤ 12 ops (BFS-optimal) |
+| 100 numbers | < 700 | ~577 ops average |
+| 500 numbers | < 5500 | ~5400 ops average |
 
 ## Project Structure
 
 ```text
 push-swap
 ├── cmd/
-│   ├── checker/            # Entry point for the validation tool
+│   ├── checker/                  # Entry point for the validation tool
 │   │   └── main.go
-│   └── push-swap/          # Entry point for the algorithm calculator
+│   └── push-swap/                # Entry point for the algorithm calculator
 │       └── main.go
-├── internal/               # Core business logic (Private packages)
-│   ├── errs/               # Centralized error handling (Error\n)
-│   ├── operations/         # Implementation of the 11 stack operations
-│   ├── parser/             # Argument parsing, sanitization & validation
-│   │   └── testdata/       # Fuzz seeds and input golden files
-│   ├── sorter/             # Sorting algorithms (Dispatcher, Small, Big)
-│   └── stack/              # High-performance Stack data structure
-├── .ai/                    # AI collaboration logs & protocols
-├── .docs/                  # Project requirements, test cases, and workflow
-│   ├── .team/              # Team workflow and checklists
-│   └── golden-tests.md     # Mandatory audit test cases
-├── go.mod                  # Project dependencies (Standard Library only)
+├── internal/                     # Core business logic (private packages)
+│   ├── errs/                     # Centralized error handling (Error\n + os.Exit)
+│   │   └── errs.go
+│   ├── ops/                      # All 11 stack operations (sa, pb, ra, ...)
+│   │   ├── ops.go
+│   │   └── ops_test.go
+│   ├── parser/                   # Argument parsing, sanitization & validation
+│   │   ├── parser.go
+│   │   ├── validator.go
+│   │   ├── limits.go
+│   │   ├── parser_test.go
+│   │   ├── validator_test.go
+│   │   └── limits_test.go
+│   ├── sorter/                   # Sorting engine
+│   │   ├── dispatcher.go         # Rank normalisation, routing, fast-path checks
+│   │   ├── hardcoded.go          # BFS-optimal lookup tables for n=2..6
+│   │   ├── chunk.go              # Butterfly sliding-window algorithm for n>6
+│   │   └── sorter_test.go        # Full test suite (unit + benchmark)
+│   └── stack/                    # Pre-allocated slice-based Stack
+│       ├── stack.go
+│       └── stack_test.go
+├── .ai/                          # AI collaboration logs & protocols
+├── .docs/                        # Project requirements, test cases, and workflow
+│   ├── .team/                    # Team workflow and task checklists
+│   ├── PRD.md                    # Project requirements document
+│   └── golden-tests.md           # Mandatory audit, error, and edge test cases
+├── go.mod                        # Module declaration (Standard Library only)
 └── README.md
 ```
 ## Project Documentation References:
 
 - [PRD](.docs/PRD.md)
 - [Golden Tests](.docs/golden-tests.md)
-- [*additional document related to the project specifications*]()
-- [*additional document related to the project specifications*]()
 
 ---
-*This project is part of the Zone01 Campus curriculum. It is built and maintained according to the guidelines specified in the `.docs/` directory.*
+*This project is part of the Zone01 Campus curriculum.
+It is built and maintained according to the guidelines specified in the `.docs/` directory.*

@@ -1,7 +1,7 @@
 TASK ID: TASK-09
 TITLE: Algorithmic Benchmarking & Optimization
 ROLE: Algorithm Specialist
-STATUS: TODO
+STATUS: DONE
 
 DESCRIPTION:
 Rigorously benchmark the sorting algorithms (Milestone 5) to ensure they safely pass the strict instruction limits for massive payloads (100 and 500 numbers). Shave off redundant instructions if necessary.
@@ -20,7 +20,7 @@ ACCEPTANCE CRITERIA / TEST CASES:
 - Performance Test P03: `ARG=$(shuf -i 1-10000 -n 500 | tr '\n' ' '); ./push-swap $ARG | wc -l` -> Expected consistently `< 5500`.
 
 DEFINITION OF DONE:
-- [ ] Benchmarks pass successfully over multiple random seeds.
-- [ ] Algorithm logic documented clearly for defense/audit purposes.
-- [ ] Space/Time complexity constraints satisfied.
-- [ ] AI index log entries added to `.ai/hmim.ai.txt`.
+- [x] Benchmarks pass successfully over multiple random seeds.
+- [x] Algorithm logic documented clearly for defense/audit purposes.
+- [x] Space/Time complexity constraints satisfied.
+- [x] AI index log entries added to `.ai/hmim.ai.txt`.

@@ -1,7 +1,7 @@
 TASK ID: TASK-05
 TITLE: Small Sort Algorithms (N=2 to 5)
 ROLE: Algorithm Specialist
-STATUS: TODO
+STATUS: DONE
 
 DESCRIPTION:
 Implement the entry point for `push-swap` and hardcoded, optimized sorting logic for small data sets to bypass heavy generalization algorithms.
@@ -23,7 +23,7 @@ ACCEPTANCE CRITERIA / TEST CASES:
 - CLI Example: Input: `./push-swap "<5 random nums>"` -> Expected: Valid sort in < 12 ops.
 
 DEFINITION OF DONE:
-- [ ] Core logic is fully implemented and executes without runtime errors.
-- [ ] Algorithm benchmark tests are passing (Limits: 3/12 instructions).
-- [ ] Logic is decoupled from `os.Stdout` to allow for unit testing.
-- [ ] AI index log entries added to `.ai/hmim.ai.txt`.
+- [x] Core logic is fully implemented and executes without runtime errors.
+- [x] Algorithm benchmark tests are passing (Limits: 3/12 instructions).
+- [x] Logic is decoupled from `os.Stdout` to allow for unit testing.
+- [x] AI index log entries added to `.ai/hmim.ai.txt`.
