@@ -1,7 +1,7 @@
 TASK ID: TASK-04
 TITLE: Checker Executable Pipeline
 ROLE: QA & Integration Engineer
-STATUS: TODO
+STATUS: DONE
 
 DESCRIPTION:
 Build the `checker` executable. It reads standard input line-by-line, applies the valid operations to the parsed stacks, and verifies if Stack A is correctly sorted.
@@ -22,7 +22,7 @@ ACCEPTANCE CRITERIA / TEST CASES:
 - CLI Example: Input: `echo -e "invalid\n" | ./checker "1 2"` -> Expected: `Error\n` on stderr (Exit 1)
 
 DEFINITION OF DONE:
-- [ ] Core logic is fully implemented and executes without runtime errors.
-- [ ] Edge cases, invalid inputs, and error states are handled gracefully.
-- [ ] Binary compilation verified (`go build -o checker ./cmd/checker`).
-- [ ] AI index log entries added to `.ai/hmim.ai.txt`.
+- [x] Core logic is fully implemented and executes without runtime errors.
+- [x] Edge cases, invalid inputs, and error states are handled gracefully.
+- [x] Binary compilation verified (`go build -o checker ./cmd/checker`).
+- [x] AI index log entries added to `.ai/hmim.ai.txt`.

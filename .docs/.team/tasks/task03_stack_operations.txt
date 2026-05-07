@@ -1,7 +1,7 @@
 TASK ID: TASK-03
 TITLE: Stack Instruction Operations
 ROLE: QA & Integration Engineer
-STATUS: TODO
+STATUS: DONE
 
 DESCRIPTION:
 Implement the 11 strict stack operations (`sa`, `sb`, `ss`, `pa`, `pb`, `ra`, `rb`, `rr`, `rra`, `rrb`, `rrr`). These functions must be shared by both binaries to ensure consistent behavior.
@@ -22,7 +22,7 @@ ACCEPTANCE CRITERIA / TEST CASES:
 - Unit Test: Stack A `[1, 2, 3]`, run `ra` -> Expected Stack A `[2, 3, 1]`.
 
 DEFINITION OF DONE:
-- [ ] Core logic is fully implemented and executes without runtime errors.
-- [ ] Code is formatted according to project standards.
-- [ ] Unit tests are written and passing for all 11 operations.
-- [ ] AI index log entries added to `.ai/hmim.ai.txt`.
+- [x] Core logic is fully implemented and executes without runtime errors.
+- [x] Code is formatted according to project standards.
+- [x] Unit tests are written and passing for all 11 operations.
+- [x] AI index log entries added to `.ai/hmim.ai.txt`.
