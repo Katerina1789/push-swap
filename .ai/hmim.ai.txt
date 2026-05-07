@@ -159,3 +159,28 @@ Model Used: Claude Sonnet 4.6
 Discussion Summary: Completed TASK-03 (Stack Instruction Operations). Verified that all 11 stack operations (sa, sb, ss, pa, pb, ra, rb, rr, rra, rrb, rrr) were already implemented in internal/ops/ops.go with corresponding unit tests in ops_test.go. Applied gofmt to bring both files in line with project formatting standards. All tests pass.
 Action Taken: Ran gofmt -w on internal/ops/ops.go and internal/ops/ops_test.go. Confirmed all unit tests pass with go test ./internal/ops/... -v.
 Affected Area/Task Card: TASK-03, internal/ops
+
+Date: 2026-05-06
+Model Used: Claude Sonnet 4.6
+Discussion Summary: Completed TASK-04 (Checker Executable Pipeline). Verified cmd/checker/main.go was already implemented: bufio.Scanner reads stdin, dispatches all 11 ops via a map, rejects unknown instructions with errs.ExitWithError(), and prints OK/KO based on stack state. All three acceptance criteria verified using file-based stdin redirect (cmd echo adds trailing spaces on Windows, so file redirect was required). Binary compiled successfully with go build -o checker.exe.
+Action Taken: Built binary with go build -o checker.exe ./cmd/checker. Ran acceptance criteria: sa|checker "2 1"→OK, sa|checker "1 2"→KO, invalid|checker "1 2"→Error+exit1. Confirmed gofmt clean.
+Affected Area/Task Card: TASK-04, cmd/checker
+
+Date: 2026-05-06
+Model Used: Claude Sonnet 4.6
+Discussion Summary: Completed TASK-08 (End-to-End Golden Test Suite Pipeline). Created internal/parser/testdata/golden/ (5 files: E01-E03, EC01 error cases, valid parse) and internal/sorter/testdata/golden/ (7 files: C01, C03, EC02, C11, EC06, E01 stderr, C07). Added internal/parser/golden_test.go (TestParserGolden) and internal/sorter/integration_test.go (TestIntegrationGolden + TestMain binary build). Integration tests build both binaries in a temp dir, run them, and compare stdout/stderr against golden files with os.ReadFile. All 7 integration cases and 5 parser cases pass. Applied gofmt -s -w to all modified packages.
+Action Taken: Created 12 golden files, golden_test.go, integration_test.go. Ran go test ./... (all pass, 3.7s for sorter integration suite). Applied gofmt -s.
+Affected Area/Task Card: TASK-08, internal/parser/testdata/golden, internal/sorter/testdata/golden
+
+Date: 2026-05-06
+Model Used: Claude Sonnet 4.6
+Discussion Summary: Completed TASK-07 (Final Parser Edge Case & Memory Audit). Added FuzzParse to parser_test.go with 9 inline seeds and 6 corpus files under testdata/fuzz/FuzzParse/ covering EC01/EC04/E03 cases. Filled in limits_test.go with TestInt32Boundaries (EC04/E03) and TestEC01EmptyWhitespace. CLI test go run ./cmd/push-swap "2147483647 -2147483648 0" produced valid single-op output (ra). go test -race not available on this machine (requires CGO/GCC); all tests pass without race flag. Applied gofmt -s -w to parser and stack packages.
+Action Taken: Added FuzzParse + corpus, wrote limits_test.go, ran go test ./... (all pass), ran gofmt -s -w on parser/stack.
+Note: go test -race requires CGO_ENABLED=1 and GCC, which are not installed on this Windows machine. Race detector should be verified on a Linux CI environment.
+Affected Area/Task Card: TASK-07, internal/parser, internal/stack
+
+Date: 2026-05-07
+Model Used: Claude Sonnet 4.6
+Discussion Summary: Reduced internal/sorter/hardcoded.go from 923 lines to ~199 lines by dropping table6 (720 BFS-optimal entries for n=6 permutations). Lowered the sortSmall threshold in dispatcher.go from n<=6 to n<=5, routing exact n=6 inputs to sortChunk instead.
+Action Taken: Deleted table6 from internal/sorter/hardcoded.go. Changed dispatcher.go Sort() switch case from n<=6 to n<=5. Removed the case 6 branch from sortSmall switch.
+Affected Area/Task Card: internal/sorter/hardcoded.go, internal/sorter/dispatcher.go

@@ -16,7 +16,7 @@ func Sort(a, b *Stack, emit func(string)) {
 	switch {
 	case n <= 1:
 		return
-	case n <= 6:
+	case n <= 5:
 		normalize(a)
 		sortSmall(a, b, emit)
 	default:
