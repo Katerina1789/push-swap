@@ -77,8 +77,8 @@ ARG=$(shuf -i 1-1000 -n 500 | tr '\n' ' '); ./push-swap $ARG | wc -l
 
 ## Features
 
-- **BFS-Optimal Small Sort**: Hardcoded lookup tables for n=2..6, pre-computed via BFS, guaranteeing the minimum possible instruction count for every permutation (n=3 ≤ 2 ops, n=5 ≤ 10 ops).
-- **Butterfly Chunk Algorithm**: A two-phase sliding-window partition strategy for n>6 — elements are pushed to B in chunks of 16 (n≤100) or 32 (n>100), then pulled back in perfect descending order. Averages ~577 ops for n=100 and stays well under 5500 for n=500.
+- **BFS-Optimal Small Sort**: Hardcoded lookup tables for n=2..5, pre-computed via BFS, guaranteeing the minimum possible instruction count for every permutation (n=3 ≤ 2 ops, n=5 ≤ 10 ops).
+- **Butterfly Chunk Algorithm**: A two-phase sliding-window partition strategy for n>5 — elements are pushed to B in chunks of 16 (n≤100) or 32 (n>100), then pulled back in perfect descending order. Averages ~577 ops for n=100 and stays well under 5500 for n=500.
 - **Smart Dispatcher**: Automatically selects the right algorithm and short-circuits already-sorted, one-swap, and one-rotation inputs before invoking any heavy logic.
 - **Strict Validation**: Robust fail-fast parsing that rejects duplicates, non-integers, and overflows with a mandatory `Error` signal.
 - **Shared Core Logic**: A unified internal engine ensuring that `checker` and `push-swap` share the exact same mutation rules.
@@ -96,8 +96,8 @@ The project follows a **Modular CLI Pipeline** architecture, isolating core busi
   - `limits.go` — reserved package-level constants for `MaxInt`/`MinInt` boundary configuration.
 - **`internal/sorter`**: The algorithmic engine composed of three files:
   - `dispatcher.go` — normalizes ranks, short-circuits trivial cases, routes to small or chunk sort.
-  - `hardcoded.go` — BFS-optimal lookup tables for every permutation of n=2..6.
-  - `chunk.go` — Butterfly sliding-window algorithm for n>6.
+  - `hardcoded.go` — BFS-optimal lookup tables for every permutation of n=2..5.
+  - `chunk.go` — Butterfly sliding-window algorithm for n>5.
 - **`internal/ops`**: Implements all 11 mandatory stack operations (`sa`, `sb`, `ss`, `pa`, `pb`, `ra`, `rb`, `rr`, `rra`, `rrb`, `rrr`).
 
 ## Error Handling
@@ -141,7 +141,7 @@ go test -coverprofile=coverage.out ./... && go tool cover -html=coverage.out
 | 2 numbers | — | 0–1 ops |
 | 3 numbers | — | ≤ 2 ops (BFS-optimal) |
 | 5 numbers | < 12 | ≤ 10 ops (BFS-optimal) |
-| 6 numbers | — | ≤ 12 ops (BFS-optimal) |
+| 6 numbers | — | chunk sort (no strict limit) |
 | 100 numbers | < 700 | ~577 ops average |
 | 500 numbers | < 5500 | ~5400 ops average |
 

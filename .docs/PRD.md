@@ -149,7 +149,7 @@ graph TD
 2. **Input Layer (`internal/parser/`)**: Handles argument sanitization, whitespace handling, and duplicate detection.
 3. **Error Handling (`internal/errs/`)**: Centralized package for the mandatory `Error\n` signal and `os.Exit(1)` management.
 4. **Domain Model (`internal/stack/`, `internal/operations/`)**: Manages `a` and `b` state. Implements the 11 atomic mutations.
-5. **Sorting Engine (`internal/sorter/`)**: Three-file engine — `dispatcher.go` (routing + rank normalisation), `hardcoded.go` (BFS-optimal tables for n=2..6), `chunk.go` (Butterfly sliding-window for n>6).
+5. **Sorting Engine (`internal/sorter/`)**: Three-file engine — `dispatcher.go` (routing + rank normalisation), `hardcoded.go` (BFS-optimal tables for n=2..5), `chunk.go` (Butterfly sliding-window for n>5).
 6. **Output Layer**: Shared logic for printing valid instructions or evaluation results (`OK`/`KO`).
 
 ---
@@ -158,7 +158,7 @@ graph TD
 
 - **Milestone 1: Foundation** - Skeleton setup, `testdata/` scaffolding, strict input parsing, and high-performance Stack structures.
 - **Milestone 2: Operations & Checker** - Implementing the 11 strict operations (`sa`, `pb`, etc.) and fully building the `checker` to serve as our internal testing oracle.
-- **Milestone 3: Base Sorting Logic** - Implementing hard-coded, specialized sorts for small sets (3 to 5 numbers) to comfortably pass the `<12 instructions` benchmark.
+- **Milestone 3: Base Sorting Logic** - Implementing hard-coded, BFS-optimal sorts for small sets (n=2..5) to comfortably pass the `<12 instructions` benchmark. n=6 falls through to the chunk algorithm (no strict op limit).
 - **Milestone 4: Advanced Algorithm Integration** - Implementing the primary scalable sorting algorithm (e.g., Radix Sort, Chunk Sort, or Longest Increasing Subsequence) to handle 100/500 numbers within benchmark limits.
 - **Milestone 5: QA & Integration** - Running the Golden Test suite, performance optimization, and memory leak/race checks.
 
