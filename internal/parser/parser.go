@@ -3,8 +3,6 @@ package parser
 import (
 	"strconv"
 	"strings"
-
-	"push-swap/internal/errs"
 )
 
 // Parse converts CLI args into validated integers.
@@ -19,7 +17,7 @@ func Parse(args []string) []int {
 	for _, arg := range args {
 		fields := strings.Fields(arg)
 		if len(fields) == 0 {
-			errs.ExitWithError() // empty or whitespace-only argument
+			ExitWithError() // empty or whitespace-only argument
 		}
 		tokens = append(tokens, fields...)
 	}
@@ -31,18 +29,18 @@ func Parse(args []string) []int {
 	for _, tok := range tokens {
 		// Validate int32 range.
 		if !isValidInt32(tok) {
-			errs.ExitWithError()
+			ExitWithError()
 		}
 
 		// Convert to int.
 		n, err := strconv.Atoi(tok)
 		if err != nil {
-			errs.ExitWithError()
+			ExitWithError()
 		}
 
 		// Detect duplicates.
 		if seen[n] {
-			errs.ExitWithError()
+			ExitWithError()
 		}
 		seen[n] = true
 

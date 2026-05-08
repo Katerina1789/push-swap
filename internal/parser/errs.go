@@ -2,7 +2,7 @@
 // This package defines custom error types and helper functions
 // for creating and managing errors throughout the application.
 
-package errs
+package parser
 
 import (
 	"fmt"

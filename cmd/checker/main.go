@@ -7,7 +7,6 @@ import (
 	"os"
 	"strings"
 
-	"push-swap/internal/errs"
 	"push-swap/internal/ops"
 	"push-swap/internal/parser"
 	"push-swap/internal/stack"
@@ -57,18 +56,18 @@ func main() {
 
 		// Reject instructions with trailing/leading spaces.
 		if line != strings.TrimSpace(line) {
-			errs.ExitWithError()
+			parser.ExitWithError()
 		}
 
 		fn, ok := dispatchMap[line]
 		if !ok {
-			errs.ExitWithError()
+			parser.ExitWithError()
 		}
 		fn(stackA, stackB)
 	}
 
 	if err := scanner.Err(); err != nil {
-		errs.ExitWithError()
+		parser.ExitWithError()
 	}
 
 	if isSortedStack(stackA) && stackB.IsEmpty() {

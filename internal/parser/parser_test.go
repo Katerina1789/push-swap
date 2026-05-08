@@ -6,18 +6,16 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
-
-	"push-swap/internal/errs"
 )
 
 // runParse safely captures os.Exit calls for testing.
 func runParse(args []string) (nums []int, exited bool) {
 	// Replace os.Exit temporarily.
-	old := errs.ExitFunc
-	defer func() { errs.ExitFunc = old }()
+	old := ExitFunc
+	defer func() { ExitFunc = old }()
 
 	exited = false
-	errs.ExitFunc = func() {
+	ExitFunc = func() {
 		exited = true
 	}
 
