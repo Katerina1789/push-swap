@@ -81,17 +81,6 @@ func normalize(a *Stack) {
 	}
 }
 
-// findMaxPos returns the logical index (0=top) of the element with the highest rank in the stack.
-func findMaxPos(s *Stack) int {
-	max, pos := -1, 0
-	for i := 0; i < s.Len(); i++ {
-		if v := s.At(i); v > max {
-			max, pos = v, i
-		}
-	}
-	return pos
-}
-
 // findRankPos returns the logical index (0=top) of the element with the specific rank.
 func findRankPos(s *Stack, rank int) int {
 	for i := 0; i < s.Len(); i++ {

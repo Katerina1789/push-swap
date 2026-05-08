@@ -54,11 +54,15 @@ func RotateA(a *Stack) {
 		return
 	}
 
-	top, _ := a.Pop()
+	top, ok := a.Pop()
+	if !ok {
+		return
+	}
 	buffer := make([]int, 0, a.Len())
 	for !a.IsEmpty() {
-		val, _ := a.Pop()
-		buffer = append(buffer, val)
+		if val, ok := a.Pop(); ok {
+			buffer = append(buffer, val)
+		}
 	}
 
 	a.Push(top)
@@ -86,11 +90,15 @@ func ReverseRotateA(a *Stack) {
 
 	buffer := make([]int, 0, a.Len())
 	for a.Len() > 1 {
-		val, _ := a.Pop()
-		buffer = append(buffer, val)
+		if val, ok := a.Pop(); ok {
+			buffer = append(buffer, val)
+		}
 	}
 
-	bottom, _ := a.Pop()
+	bottom, ok := a.Pop()
+	if !ok {
+		return
+	}
 	for i := len(buffer) - 1; i >= 0; i-- {
 		a.Push(buffer[i])
 	}

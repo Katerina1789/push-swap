@@ -1,8 +1,9 @@
 package ops
 
 import (
-	"push-swap/internal/stack"
 	"testing"
+
+	"push-swap/internal/stack"
 )
 
 func stackOf(items ...int) *stack.Stack {
@@ -16,8 +17,9 @@ func stackOf(items ...int) *stack.Stack {
 func readItems(s *stack.Stack) []int {
 	temp := make([]int, 0, s.Len())
 	for !s.IsEmpty() {
-		v, _ := s.Pop()
-		temp = append(temp, v)
+		if v, ok := s.Pop(); ok {
+			temp = append(temp, v)
+		}
 	}
 
 	items := make([]int, len(temp))

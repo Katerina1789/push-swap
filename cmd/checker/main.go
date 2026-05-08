@@ -14,7 +14,11 @@ import (
 )
 
 func main() {
-	nums := parser.Parse(os.Args[1:])
+	args := os.Args
+	if len(args) > 0 {
+		args = args[1:]
+	}
+	nums := parser.Parse(args)
 
 	// C07: no args → no output.
 	if len(nums) == 0 {

@@ -11,7 +11,11 @@ import (
 )
 
 func main() {
-	nums := parser.Parse(os.Args[1:])
+	args := os.Args
+	if len(args) > 0 {
+		args = args[1:]
+	}
+	nums := parser.Parse(args)
 
 	if len(nums) <= 1 || isSorted(nums) {
 		return

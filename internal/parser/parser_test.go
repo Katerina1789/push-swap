@@ -4,9 +4,10 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"push-swap/internal/errs"
 	"strings"
 	"testing"
+
+	"push-swap/internal/errs"
 )
 
 // runParse safely captures os.Exit calls for testing.
@@ -39,23 +40,23 @@ func equalSlices(a, b []int) bool {
 
 func TestParse(t *testing.T) {
 	tests := []struct {
-		name    string
+		name string
+		// golden is an optional file under testdata/golden/ whose content
+		// must equal the compact result string ("error" or space-joined ints).
+		golden  string
 		args    []string
 		want    []int
 		wantErr bool
-		// golden is an optional file under testdata/golden/ whose content
-		// must equal the compact result string ("error" or space-joined ints).
-		golden string
 	}{
-		{"valid single arg", []string{"1 2 3"}, []int{1, 2, 3}, false, "parse_valid.golden"},
-		{"valid multi args", []string{"1", "2", "3"}, []int{1, 2, 3}, false, ""},
-		{"empty string", []string{""}, nil, true, "parse_ec01_error.golden"},
-		{"whitespace only", []string{"   "}, nil, true, ""},
-		{"duplicate", []string{"1 2 2 3"}, nil, true, "parse_e02_error.golden"},
-		{"non-integer", []string{"0 one 2 3"}, nil, true, "parse_e01_error.golden"},
-		{"overflow", []string{"2147483648"}, nil, true, "parse_e03_error.golden"},
-		{"underflow", []string{"-2147483649"}, nil, true, ""},
-		{"no args", []string{}, []int{}, false, ""},
+		{"valid single arg", "parse_valid.golden", []string{"1 2 3"}, []int{1, 2, 3}, false},
+		{"valid multi args", "", []string{"1", "2", "3"}, []int{1, 2, 3}, false},
+		{"empty string", "parse_ec01_error.golden", []string{""}, nil, true},
+		{"whitespace only", "", []string{"   "}, nil, true},
+		{"duplicate", "parse_e02_error.golden", []string{"1 2 2 3"}, nil, true},
+		{"non-integer", "parse_e01_error.golden", []string{"0 one 2 3"}, nil, true},
+		{"overflow", "parse_e03_error.golden", []string{"2147483648"}, nil, true},
+		{"underflow", "", []string{"-2147483649"}, nil, true},
+		{"no args", "", []string{}, []int{}, false},
 	}
 
 	for _, tt := range tests {

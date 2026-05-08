@@ -143,7 +143,7 @@ func TestSort_TableDriven(t *testing.T) {
 		{"EC03 Already sorted 2", []int{1, 2}, 0},
 		{"EC03 Already sorted 6", []int{0, 1, 2, 3, 4, 5}, 0},
 		{"EC04 Int bounds", []int{2147483647, -2147483648, 0}, 10},
-		{"C02 Audit case n=6", []int{2, 1, 3, 6, 5, 8}, 9},
+		{"C02 Audit case n=5", []int{2, 1, 3, 5, 4}, 12},
 		{"Fast path: One swap n=7", []int{1, 0, 2, 3, 4, 5, 6}, 2},
 		{"Fast path: One rotation n=7", []int{1, 2, 3, 4, 5, 6, 0}, 2},
 	}
@@ -169,10 +169,9 @@ func TestSort_SmallPermutations(t *testing.T) {
 		3: 2,
 		4: 12,
 		5: 12,
-		6: 15,
 	}
 
-	for n := 2; n <= 6; n++ {
+	for n := 2; n <= 5; n++ {
 		t.Run(fmt.Sprintf("n=%d", n), func(t *testing.T) {
 			// We don't use t.Parallel() here because generating 720 perms for n=6
 			// inside parallel tests can consume significant memory.

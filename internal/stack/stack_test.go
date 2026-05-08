@@ -7,8 +7,8 @@ import (
 // TestStackOperations covers Push, Pop, Peek using table-driven tests.
 func TestStackOperations(t *testing.T) {
 	tests := []struct {
-		name    string
 		run     func(*Stack) (int, bool)
+		name    string
 		wantVal int
 		wantOK  bool
 	}{
