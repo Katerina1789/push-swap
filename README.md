@@ -1,12 +1,11 @@
 # push-swap
 
-![Go Version](https://img.shields.io/badge/Go-1.25.6-blue.svg)
-![Standard Library](https://img.shields.io/badge/StdLib-Only-orange.svg)
-![License](https://img.shields.io/badge/License-MIT-brightgreen.svg)
-![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen.svg)
-![Test Coverage](https://img.shields.io/badge/Coverage-sorter%2Fops%2Fparser-blue.svg)
-
-[![01](https://img.shields.io/badge/zone01-Athens-916ADE?&labelColor=181717&style=for-the-badge&logo=data:image/svg%2Bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PHBhdGggZD0iTTEyIDJMMiA3bDEwIDUgMTAtNS0xMC01eiIvPjxwYXRoIGQ9Ik0yIDE3bDEwIDUgMTAtNU0yIDEybDEwIDUgMTAtNSIvPjwvc3ZnPg==)](https://github.com/01-edu/public/tree/master/subjects/ascii-art-web)
+[![Go Language](https://img.shields.io/badge/Go-1.25.7-00ADD8?style=for-the-badge&logo=go&logoColor=white)](https://go.dev/)
+[![Standard Library](https://img.shields.io/badge/StdLib-Only-00ADD8?style=for-the-badge&logo=go&logoColor=white)](https://pkg.go.dev/std)
+[![Build Status](https://img.shields.io/badge/Build-Passing-00C853?style=for-the-badge&logo=github&logoColor=white)](https://github.com)
+[![Test Coverage](https://img.shields.io/badge/Coverage-71.7%25-FFA726?style=for-the-badge&logo=codecov&logoColor=white)](https://go.dev/blog/cover)
+[![Zone01](https://img.shields.io/badge/Zone01-Athens-FF6B35?style=for-the-badge&logo=42&logoColor=white)](https://zone01.gr/)
+[![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](LICENSE)
 
 A highly optimized sorting algorithm calculator and validation suite developed in Go. This project implements a solution to sort data on a stack, using a limited set of instructions, with the objective of achieving the lowest possible number of actions.
 
@@ -24,7 +23,7 @@ A highly optimized sorting algorithm calculator and validation suite developed i
 
 ## Installation
 
-This project requires **Go 1.25.6+**. To build the binaries, execute:
+This project requires **Go 1.25.7+**. To build the binaries, execute:
 
 ```bash
 # Build the calculator
@@ -148,45 +147,93 @@ go test -coverprofile=coverage.out ./... && go tool cover -html=coverage.out
 ## Project Structure
 
 ```text
-push-swap
+push-swap/
 ├── cmd/
 │   ├── checker/                  # Entry point for the validation tool
 │   │   └── main.go
 │   └── push-swap/                # Entry point for the algorithm calculator
 │       └── main.go
 ├── internal/                     # Core business logic (private packages)
-│   ├── errs/                     # Centralized error handling (Error\n + os.Exit)
-│   │   └── errs.go
 │   ├── ops/                      # All 11 stack operations (sa, pb, ra, ...)
 │   │   ├── ops.go
 │   │   └── ops_test.go
 │   ├── parser/                   # Argument parsing, sanitization & validation
 │   │   ├── parser.go
 │   │   ├── validator.go
-│   │   ├── limits.go
+│   │   ├── errs.go               # Centralized error handling (Error\n + os.Exit)
 │   │   ├── parser_test.go
 │   │   ├── validator_test.go
-│   │   └── limits_test.go
+│   │   └── testdata/             # Test data for parser package
+│   │       ├── fuzz/             # Fuzzing corpus and seeds
+│   │       │   ├── FuzzParse/    # Fuzz test artifacts
+│   │       │   └── seed_corpus.txt
+│   │       └── golden/           # Golden files for parser tests
+│   │           ├── parse_e01_error.golden
+│   │           ├── parse_e02_error.golden
+│   │           ├── parse_e03_error.golden
+│   │           ├── parse_ec01_error.golden
+│   │           └── parse_valid.golden
 │   ├── sorter/                   # Sorting engine
 │   │   ├── dispatcher.go         # Rank normalisation, routing, fast-path checks
-│   │   ├── hardcoded.go          # BFS-optimal lookup tables for n=2..6
-│   │   ├── chunk.go              # Butterfly sliding-window algorithm for n>6
+│   │   ├── hardcoded.go          # BFS-optimal lookup tables for n=2..5
+│   │   ├── chunk.go              # Butterfly sliding-window algorithm for n>5
 │   │   └── sorter_test.go        # Full test suite (unit + benchmark)
 │   └── stack/                    # Pre-allocated slice-based Stack
 │       ├── stack.go
 │       └── stack_test.go
 ├── .ai/                          # AI collaboration logs & protocols
+│   ├── ebasou.ai.txt
+│   ├── hmim.ai.txt
+│   ├── kkasdana.ai.txt
+│   └── README.md
 ├── .docs/                        # Project requirements, test cases, and workflow
 │   ├── .team/                    # Team workflow and task checklists
-│   ├── PRD.md                    # Project requirements document
-│   └── golden-tests.md           # Mandatory audit, error, and edge test cases
+│   │   ├── checklists/           # Good practices checklists
+│   │   │   ├── CLI-Good-Practices-Checklist.md
+│   │   │   ├── Conventional-Commits.md
+│   │   │   ├── Git-Workflow.md
+│   │   │   └── Testing-Good-Practices-Checklist.md
+│   │   ├── tasks/                # Task tracking files (TASK-01 to TASK-10)
+│   │   ├── README.md
+│   │   └── TEAM_WORKFLOW.md
+│   ├── audit-cases.md            # Official audit test cases
+│   ├── edge-cases.md             # Edge case scenarios
+│   ├── error-cases.md            # Error handling test cases
+│   ├── golden-tests.md           # Comprehensive test suite
+│   └── PRD.md                    # Product requirements document
+├── .scripts/                     # Automation & quality control scripts
+│   ├── check.sh                  # Comprehensive quality check pipeline
+│   ├── install-tools.sh          # Install required Go tools
+│   ├── Makefile                  # Build automation
+│   └── README.md
+├── .gitignore                    # Git ignore rules
+├── coverage.out                  # Test coverage report (generated)
 ├── go.mod                        # Module declaration (Standard Library only)
-└── README.md
+├── LICENSE                       # MIT License
+├── README.md                     # Project documentation (this file)
+├── checker                       # Compiled checker binary (generated)
+└── push-swap                     # Compiled push-swap binary (generated)
 ```
-## Project Documentation References:
+## Project Documentation
 
-- [PRD](.docs/PRD.md)
-- [Golden Tests](.docs/golden-tests.md)
+### Core Documentation
+- **[Product Requirements Document (PRD)](.docs/PRD.md)** - Complete project specifications, architecture, and requirements
+- **[Golden Tests](.docs/golden-tests.md)** - Comprehensive test suite with all audit, error, and edge cases
+- **[Audit Cases](.docs/audit-cases.md)** - Official Zone01 audit test cases (C01-C15)
+- **[Error Cases](.docs/error-cases.md)** - Error handling validation scenarios (E01-E05)
+- **[Edge Cases](.docs/edge-cases.md)** - Boundary conditions and edge scenarios (EC01-EC06)
+
+### Team Workflow
+- **[Team Workflow](.docs/.team/TEAM_WORKFLOW.md)** - Development workflow, Git practices, and collaboration guidelines
+- **[Task Tracking](.docs/.team/tasks/)** - Individual task cards (TASK-01 through TASK-10)
+- **[Good Practices Checklists](.docs/.team/checklists/)** - CLI, Testing, Git, and Conventional Commits guidelines
+
+### AI Collaboration
+- **[AI Collaboration Guide](.ai/README.md)** - Guidelines for AI-assisted development
+- **[Team AI Logs](.ai/)** - Individual AI collaboration logs (hmim.ai.txt, ebasou.ai.txt, kkasdana.ai.txt)
+
+### Automation
+- **[Scripts Documentation](.scripts/README.md)** - Quality control and automation tools
 
 ---
 *This project is part of the Zone01 Campus curriculum.
