@@ -4,8 +4,9 @@
 [![Standard Library](https://img.shields.io/badge/StdLib-Only-00ADD8?style=for-the-badge&logo=go&logoColor=white)](https://pkg.go.dev/std)
 [![Build Status](https://img.shields.io/badge/Build-Passing-00C853?style=for-the-badge&logo=github&logoColor=white)](https://github.com)
 [![Test Coverage](https://img.shields.io/badge/Coverage-71.7%25-FFA726?style=for-the-badge&logo=codecov&logoColor=white)](https://go.dev/blog/cover)
-[![Zone01](https://img.shields.io/badge/Zone01-Athens-FF6B35?style=for-the-badge&logo=42&logoColor=white)](https://zone01.gr/)
 [![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](LICENSE)
+
+[![Zone01](https://img.shields.io/badge/zone01-Athens-916ADE?&labelColor=181717&style=for-the-badge&logo=42)](https://zone01.gr/)
 
 A highly optimized sorting algorithm calculator and validation suite developed in Go. This project implements a solution to sort data on a stack, using a limited set of instructions, with the objective of achieving the lowest possible number of actions.
 
@@ -31,6 +32,9 @@ go build -o push-swap ./cmd/push-swap
 
 # Build the validator
 go build -o checker ./cmd/checker
+
+# Make the binaries executable
+chmod +x push-swap checker
 ```
 
 ## Usage
@@ -76,9 +80,9 @@ ARG=$(shuf -i 1-1000 -n 500 | tr '\n' ' '); ./push-swap $ARG | wc -l
 
 ## Features
 
-- **BFS-Optimal Small Sort**: Hardcoded lookup tables for n=2..5, pre-computed via BFS, guaranteeing the minimum possible instruction count for every permutation (n=3 ≤ 2 ops, n=5 ≤ 10 ops).
-- **Butterfly Chunk Algorithm**: A two-phase sliding-window partition strategy for n>5 — elements are pushed to B in chunks of 16 (n≤100) or 32 (n>100), then pulled back in perfect descending order. Averages ~577 ops for n=100 and stays well under 5500 for n=500.
-- **Smart Dispatcher**: Automatically selects the right algorithm and short-circuits already-sorted, one-swap, and one-rotation inputs before invoking any heavy logic.
+- **BFS-Optimal Small Sort**: Hardcoded lookup tables for n=2..6, pre-computed via BFS, guaranteeing the minimum possible instruction count for every permutation (n=3 ≤ 2 ops, n=5 ≤ 10 ops).
+- **Butterfly Chunk Algorithm**: A two-phase sliding-window partition strategy for n>6 — elements are pushed to B in chunks of 16 (n≤100) or 32 (n>100), then pulled back in perfect descending order. Averages ~577 ops for n=100 and stays well under 5500 for n=500.
+- **Smart Dispatcher**: Automatically selects the right algorithm and short-circuits already-sorted, single-`sa`, and single-`ra`/`rra` inputs before invoking any heavy logic. Only fires for n>6; n≤6 routes directly to the BFS table.
 - **Strict Validation**: Robust fail-fast parsing that rejects duplicates, non-integers, and overflows with a mandatory `Error` signal.
 - **Shared Core Logic**: A unified internal engine ensuring that `checker` and `push-swap` share the exact same mutation rules.
 - **High Performance**: Pre-allocated memory structures; no dynamic re-allocation during sort execution.
@@ -94,9 +98,9 @@ The project follows a **Modular CLI Pipeline** architecture, isolating core busi
   - `validator.go` — stateless helpers: `isValidInt32` (enforces ±2147483647 bounds), `hasDuplicates` (O(n) map-based check).
   - `limits.go` — reserved package-level constants for `MaxInt`/`MinInt` boundary configuration.
 - **`internal/sorter`**: The algorithmic engine composed of three files:
-  - `dispatcher.go` — normalizes ranks, short-circuits trivial cases, routes to small or chunk sort.
-  - `hardcoded.go` — BFS-optimal lookup tables for every permutation of n=2..5.
-  - `chunk.go` — Butterfly sliding-window algorithm for n>5.
+  - `dispatcher.go` — normalizes ranks, short-circuits trivial cases (already sorted, one-swap `sa`, one-rotation `ra`/`rra`), routes to small or chunk sort.
+  - `hardcoded.go` — BFS-optimal lookup tables for every permutation of n=2..6.
+  - `chunk.go` — Butterfly sliding-window algorithm for n>6.
 - **`internal/ops`**: Implements all 11 mandatory stack operations (`sa`, `sb`, `ss`, `pa`, `pb`, `ra`, `rb`, `rr`, `rra`, `rrb`, `rrr`).
 
 ## Error Handling
@@ -133,6 +137,19 @@ go test -cover ./...
 go test -coverprofile=coverage.out ./... && go tool cover -html=coverage.out
 ```
 
+### Dependency Audit
+
+This project must rely solely on the Go Standard Library. Use these commands to verify no third-party modules have been introduced:
+
+```bash
+# Lists all modules — output should contain only the project module itself
+go list -m all
+
+# Lists all transitively imported packages, filtering out the project's own packages
+# and stdlib packages (lowercase prefix). Output must be empty.
+go list -deps ./... | grep -v "^push-swap\|^[a-z]"
+```
+
 ## Performance Benchmarks
 
 | Dataset Size | Audit Limit | Actual Performance |
@@ -140,7 +157,7 @@ go test -coverprofile=coverage.out ./... && go tool cover -html=coverage.out
 | 2 numbers | — | 0–1 ops |
 | 3 numbers | — | ≤ 2 ops (BFS-optimal) |
 | 5 numbers | < 12 | ≤ 10 ops (BFS-optimal) |
-| 6 numbers | — | chunk sort (no strict limit) |
+| 6 numbers | — | ≤ 15 ops (BFS-optimal) |
 | 100 numbers | < 700 | ~577 ops average |
 | 500 numbers | < 5500 | ~5400 ops average |
 
@@ -207,7 +224,6 @@ push-swap/
 │   ├── Makefile                  # Build automation
 │   └── README.md
 ├── .gitignore                    # Git ignore rules
-├── coverage.out                  # Test coverage report (generated)
 ├── go.mod                        # Module declaration (Standard Library only)
 ├── LICENSE                       # MIT License
 ├── README.md                     # Project documentation (this file)
@@ -236,5 +252,4 @@ push-swap/
 - **[Scripts Documentation](.scripts/README.md)** - Quality control and automation tools
 
 ---
-*This project is part of the Zone01 Campus curriculum.
-It is built and maintained according to the guidelines specified in the `.docs/` directory.*
+*This project is part of the Zone01 Athens Campus curriculum.*
