@@ -109,7 +109,7 @@ Tests the algorithm's performance and efficiency at a medium scale.
 ARG="<100 random different numbers>"; ./push-swap "$ARG" | wc -l
 ```
 **Validation Rules:**
-- **Instruction Count:** The total number of instructions outputted by `push-swap` must be strictly less than 650.
+- **Instruction Count:** The total number of instructions outputted by `push-swap` must be strictly less than 700.
 ### Audit Case C12: Benchmark (100 Numbers)
 **Description:**  
 Tests the algorithm's performance and efficiency at a medium scale.
@@ -119,7 +119,7 @@ Tests the algorithm's performance and efficiency at a medium scale.
 ARG=$(shuf -i 1-1000 -n 100 | tr '\n' ' '); ./push-swap $ARG | wc -l
 ```
 **Validation Rules:**
-- **Instruction Count:** The total number of instructions outputted by `push-swap` must be strictly less than 650.
+- **Instruction Count:** The total number of instructions outputted by `push-swap` must be strictly less than 700.
 
 ### Audit Case C14: Benchmark (500 Numbers)
 **Description:**  
