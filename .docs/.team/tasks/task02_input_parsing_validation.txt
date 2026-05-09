@@ -30,4 +30,4 @@ DEFINITION OF DONE:
 - [x] Code is formatted according to project standards.
 - [x] Unit tests (Table-Driven) and Fuzz seeds are created.
 - [x] AI index log entries added to `.ai/hmim.ai.txt`.
-- [x] Intergrated changes to main.go files for future usage
+- [x] Integrated changes to main.go files for future usage

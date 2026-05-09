@@ -148,6 +148,8 @@ go list -m all
 # Lists all transitively imported packages, filtering out the project's own packages
 # and stdlib packages (lowercase prefix). Output must be empty.
 go list -deps ./... | grep -v "^push-swap\|^[a-z]"
+
+go list -f '{{.Standard}} {{.ImportPath}}' -deps ./... | grep "false"
 ```
 
 ## Performance Benchmarks
