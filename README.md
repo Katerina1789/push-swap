@@ -1,12 +1,11 @@
 # push-swap
 
-[![Go Language](https://img.shields.io/badge/Go-1.25.7-00ADD8?style=for-the-badge&logo=go&logoColor=white)](https://go.dev/)
-[![Standard Library](https://img.shields.io/badge/StdLib-Only-00ADD8?style=for-the-badge&logo=go&logoColor=white)](https://pkg.go.dev/std)
+[![Go Language](https://img.shields.io/badge/Go-1.25.7-00ADD8?style=for-the-badge&logo=go&logoColor=blue)](https://go.dev/)
+[![Standard Library](https://img.shields.io/badge/StdLib-Only-00ADD8?style=for-the-badge&logo=go&logoColor=blue)](https://pkg.go.dev/std)
 [![Build Status](https://img.shields.io/badge/Build-Passing-00C853?style=for-the-badge&logo=github&logoColor=white)](https://github.com)
 [![Test Coverage](https://img.shields.io/badge/Coverage-71.7%25-FFA726?style=for-the-badge&logo=codecov&logoColor=white)](https://go.dev/blog/cover)
-[![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](LICENSE)
-
-[![Zone01](https://img.shields.io/badge/zone01-Athens-916ADE?&labelColor=181717&style=for-the-badge&logo=42)](https://zone01.gr/)
+[![License](https://img.shields.io/badge/license-MIT-red?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](LICENSE)
+[![Zone01](https://img.shields.io/badge/zone01-Athens-0A1A99?style=for-the-badge&logoColor=white)](https://zone01.gr/)
 
 A highly optimized sorting algorithm calculator and validation suite developed in Go. This project implements a solution to sort data on a stack, using a limited set of instructions, with the objective of achieving the lowest possible number of actions.
 
