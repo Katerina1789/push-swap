@@ -5,7 +5,7 @@
 [![Build Status](https://img.shields.io/badge/Build-Passing-00C853?style=for-the-badge&logo=github&logoColor=white)](https://github.com)
 [![Test Coverage](https://img.shields.io/badge/Coverage-71.7%25-FFA726?style=for-the-badge&logo=codecov&logoColor=white)](https://go.dev/blog/cover)
 [![License](https://img.shields.io/badge/license-MIT-red?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](LICENSE)
-[![Zone01](https://img.shields.io/badge/zone01-Athens-0A1A99?style=for-the-badge&logoColor=white)](https://zone01.gr/)
+[![Zone01](https://img.shields.io/badge/zone01-Athens-916ADE?&labelColor=181717&style=for-the-badge&logo=data:image/svg%2Bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PHBhdGggZD0iTTEyIDJMMiA3bDEwIDUgMTAtNS0xMC01eiIvPjxwYXRoIGQ9Ik0yIDE3bDEwIDUgMTAtNU0yIDEybDEwIDUgMTAtNSIvPjwvc3ZnPg==)](https://github.com/01-edu/public/tree/master/subjects/push-swap)
 
 A highly optimized sorting algorithm calculator and validation suite developed in Go. This project implements a solution to sort data on a stack, using a limited set of instructions, with the objective of achieving the lowest possible number of actions.
 
